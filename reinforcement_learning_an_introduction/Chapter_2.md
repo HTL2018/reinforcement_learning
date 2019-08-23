@@ -2,46 +2,46 @@
 在数学领域，**多臂赌博机问题**（multi-armed bandit problem），也称为**顺序资源分配问题**（sequential resource allocation problem）。  
 区别强化学习与其他学习方法最重要的特征是**使用训练信息来评估**所采取的action, 而不是直接给正确的action来训练。评定性反馈（evaluative）完全根据采取的actiion，而指导性反馈（instructive）和采取的action是独立的。  
 ## 1. 问题描述——k臂赌博机（k-armed bandit）  
-![1](/home/tenglong/0.png)   
+![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_1/1.jpg)   
 赌博机有k个摇臂，玩家投一个游戏币以后可以按下任意一个摇臂, 每个摇臂以一定的概率吐出硬币, 作为奖赏。 但这个概率玩家并不知道。 玩家的目标是通过一定的策略获得最大化的累积奖赏。  
-![0](/home/tenglong/0.png)   
+![0](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/0.png)   
 那么探索好还是利用好呢？  
 > 取决于：**估计的精确度、不确定性和剩余操作次数**。  
 ### 1.1 动作值的估计方法:   
-![2](/home/tenglong/0.png)   
+![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/2.png)   
 ## 2. 探索---利用问题解决办法:  
 ### 2.1 贪心算法: 只选择当前认为最好的,不进行探索;    
 ### 2.2 \epsilon-greedy方法:  
-![3](/home/tenglong/0.png)   
-为了系统的评估贪心算法和 \epsilon-greedy算法的有效性。以十臂赌博机进行实验，随机运行2000次。在每个赌博机问题中，动作值（action value）服从期望为0，方差为1的高斯分布。当一个具体的学习方法应用于在时间步 t 选择动作问题上时，实际奖赏Rt43服从期望 ![43](/home/tenglong/0.png) 方差1的正态分布，如下图所示。
-![4](/home/tenglong/0.png)   
+![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/3.png)   
+为了系统的评估贪心算法和 \epsilon-greedy算法的有效性。以十臂赌博机进行实验，随机运行2000次。在每个赌博机问题中，动作值（action value）服从期望为0，方差为1的高斯分布。当一个具体的学习方法应用于在时间步 t 选择动作问题上时，实际奖赏Rt43服从期望 ![43](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/43.svg) 方差1的正态分布，如下图所示。
+![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/4.png)   
 ![5](/home/tenglong/0.png)   
-![6](/home/tenglong/0.png)   
+![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/6.png)   
 ![7](/home/tenglong/0.png)   
 ![8](/home/tenglong/0.png)   
 > **结论**：短期内，贪婪算法显然更占优势，但从长远来看，适当的探索对我们更有利。  
   
 **优缺点: **   
-![9](/home/tenglong/0.png)   
+![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/9.png)   
 **优化点：**  
-![10](/home/tenglong/0.png)   
+![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/10.png)   
 #### 2.2.1增量实现:  
 样本平均值计算的增量实现: 目前我们所讨论的动作值方法中，所有估计的动作值都是所观察到的样本平均值。现在我们把问题焦点转为怎样使用更有效的计算方法计算出这些平均值，特别是利用连续记忆和持续时间步长计算。   
-![11](/home/tenglong/0.png)   
+![11](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/11.png)   
 显然，通过上式我们可以计算并记录任意时刻的奖赏估计值。但长期运作下，这对于计算机内存以及计算性能要求很高，并不明智。上式可化解如下：  
 ![12](/home/tenglong/0.png)   
-![13](/home/tenglong/0.png)   
+![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/13.png)   
 即: 新估计←旧估计+步长[目标−旧估计]  
 表达式 [目标−旧估计] 是估计中的误差。通过向“目标”迈出一步来减少它。 目标被假定为指示移动的理想方向，尽管它可能是嘈杂的。例如，在上述情况下，目标是第n个奖励。  
 > 请注意，增量方法中使用的步长参数（StepSize）会从时间步长到时间步长变化。  
    
 简单的赌博机算法:  
-![14](/home/tenglong/0.png)   
+![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/14.png)   
 #### 2.2.2跟踪不稳定问题Tracking a Nonstationary Problem:  
 上述讨论的平均法适用于稳定的赌博机问题，即在赌博机问题中的奖赏分布不会随时间的变化而变化。但强化学习问题又通常是不稳定的，在这种情况下，最近的奖赏相比于前面的奖赏通常占有更重的比值。 解决这类问题的通常方法是固定步长参数,即变形为:  
-![14](/home/tenglong/0.png)   
+![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/14.png)   
 推导出步长因子与奖赏之间的权重关系，做如下变化：  
-![16](/home/tenglong/0.png)   
+![16](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/16.png)   
 > 第一个条件用于保证执行次数足够多，最终克服任何初始条件或者随机的起伏；  
 > 第二个条件保证最终收敛所用的次数足够少。  
   
@@ -49,19 +49,19 @@
 #### 2.2.3 优化初始值 Optimistic Initial Values
 目前我们讨论过的所有方法都在某种程度上依赖于初始动作值的估计。在统计学中，这些方法在初值是估计的情况下结果是有偏差的。在样本平均方法中，只有在所有的动作都至少选择了一次之后这种偏差才会消失。但在使用到固定步长的方法中，虽然这种偏差在时间步长增加的过程中会减弱，但这种偏差永恒存在。在实践中，这种偏差通常不是一个值得考虑的问题甚至在某些时候这种偏差会很有帮助。坏处在于初始参数必须是由用户提供的一系列值集合，不然只能都初始化为0，而好处是它以一种简单的方式提供了一些奖赏可期望程度的先验知识。  
 > encourage exploration: 初始值的设定：一般情况下设置为0，还可以设置为一个比较乐观的值如5，这样会鼓励探索。如下图:  
-> ![17](/home/tenglong/0.png)   
+> ![17](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/17.png)   
 ### 2.3 置信上界动作选择 Upper-Confidence-Bound Action Selection  
 我们总是需要探索，因为动作值估计准确度存在不确定性。贪心动作在目前的情况下看起来是最好的，但或许实际上一些其他的动作会更好。 \epsilon-greedy选择面临着非贪心动作的选取，但这种选取很弱智，它只会等概率的选择所有动作，而不会根据动作的潜力值（成为最优动作的潜力）来选取。一种有效的方式便是通过动作的潜力来选择动作：  
-![18](/home/tenglong/0.png)   
+![18](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/18.png)   
 > 置信上界选择核心思想是平方根是衡量动作值估计的准确度或方差。   
    
 置信上界选择核心思想是:**平方根是衡量动作值估计的准确度或方差。**因此，数量上最大化可能是动作 a 值的真实值，而 c 决定了置信指数。  
-一方面，每次选择 a 动作都会使得不确定性减少：![21](/home/tenglong/0.png) 增加，分母增大，总函数值减少。  
-另一方面，每次选择 a 以外的动作，时间 t 增大，![21](/home/tenglong/0.png)不会增大，不确定性则增大。  
+一方面，每次选择 a 动作都会使得不确定性减少：![21](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/21.svg) 增加，分母增大，总函数值减少。  
+另一方面，每次选择 a 以外的动作，时间 t 增大，![21](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/21.svg)不会增大，不确定性则增大。  
 **使用自然对数的原因是为了随时间的增加让增长率变小一点，但不会有上界。**所有的动作都会被选择到，但是针对估计值低的动作，或者是被选择选择的动作，会降低其选择频率。  
-![20](/home/tenglong/0.png)   
+![20](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/20.png)   
 ### 2.4 梯度赌博算法 Gradient Bandit Algorithms
-目前我们所讨论的方法都是估计动作值并且用这些估计的数值来选择动作。这确实是一种好的方法，但并不是最佳的方法。现在我们考虑学习对每个动作 a 的数值偏好，用 ![22](/home/tenglong/0.png) 表示，![22](/home/tenglong/0.png) 值越大，动作被选择的机会越大。但这种偏好在奖赏方面并不会有什么影响，不同动作之间只有相对偏好才重要。如果我们把全部动作偏好都增加1000，那么对于选择动作的概率并没有什么影响，它是由Softmax分布决定：  
+目前我们所讨论的方法都是估计动作值并且用这些估计的数值来选择动作。这确实是一种好的方法，但并不是最佳的方法。现在我们考虑学习对每个动作 a 的数值偏好，用 ![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/22.svg) 表示，![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/22.svg) 值越大，动作被选择的机会越大。但这种偏好在奖赏方面并不会有什么影响，不同动作之间只有相对偏好才重要。如果我们把全部动作偏好都增加1000，那么对于选择动作的概率并没有什么影响，它是由Softmax分布决定：  
 ![23](/home/tenglong/0.png)   
 注: ![24](/home/tenglong/0.png) 
 基于随机梯度上升的思想，有一个自然学习算法，在每一步中，选择动作之后会收到一个奖赏，通过如下函数更新动作偏好：(这是定义的等式)  

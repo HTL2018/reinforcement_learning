@@ -28,7 +28,7 @@
 样本平均值计算的增量实现: 目前我们所讨论的动作值方法中，所有估计的动作值都是所观察到的样本平均值。现在我们把问题焦点转为怎样使用更有效的计算方法计算出这些平均值，特别是利用连续记忆和持续时间步长计算。   
 ![11](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/11.png)   
 显然，通过上式我们可以计算并记录任意时刻的奖赏估计值。但长期运作下，这对于计算机内存以及计算性能要求很高，并不明智。上式可化解如下：  
-![12](/home/tenglong/0.png)   
+![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_1/12.svg)   
 ![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/13.png)   
 即: 新估计←旧估计+步长[目标−旧估计]  
 表达式 [目标−旧估计] 是估计中的误差。通过向“目标”迈出一步来减少它。 目标被假定为指示移动的理想方向，尽管它可能是嘈杂的。例如，在上述情况下，目标是第n个奖励。  

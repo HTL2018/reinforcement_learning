@@ -70,7 +70,7 @@
 > 十臂赌博机上运行梯度算法的结果图，如果基准线被省略那么性能将显着降低(图中 q∗(a) 被选择为接近+4而不是接近零时)  
 > ![27](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/27.png)   
 #### 2.4.1 梯度上升算法  
-将梯度赌博算法理解为梯度上升的随机近似（stochastic approximation），每个动作偏好![22](/home/tenglong/0.png) 将随着对性能的影响成比例增加：  
+将梯度赌博算法理解为梯度上升的随机近似（stochastic approximation），每个动作偏好![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/22.svg) 将随着对性能的影响成比例增加：  
 ![26](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/26.svg)   
 其中:  
 ![27](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/27.svg)   

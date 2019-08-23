@@ -13,15 +13,14 @@
 ### 2.1 贪心算法: 只选择当前认为最好的,不进行探索;    
 ### 2.2 \epsilon-greedy方法:  
 ![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/3.png)   
-为了系统的评估贪心算法和 \epsilon-greedy算法的有效性。以十臂赌博机进行实验，随机运行2000次。在每个赌博机问题中，动作值（action value）服从期望为0，方差为1的高斯分布。当一个具体的学习方法应用于在时间步 t 选择动作问题上时，实际奖赏Rt43服从期望 ![43](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/43.svg) 方差1的正态分布，如下图所示。
-![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/4.png)   
-![5](/home/tenglong/0.png)   
+为了系统的评估贪心算法和 \epsilon-greedy算法的有效性。以十臂赌博机进行实验，随机运行2000次。在每个赌博机问题中，动作值（action value）服从期望为0，方差为1的高斯分布。当一个具体的学习方法应用于在时间步 t 选择动作问题上时，实际奖赏Rt43服从期望 ![43](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/43.svg) 方差1的正态分布，如下图所示。  
+![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_1/5.jpg)   
 ![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/6.png)   
-![7](/home/tenglong/0.png)   
-![8](/home/tenglong/0.png)   
+![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_1/7.jpg)   
+![8](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_1/8.jpg)   
 > **结论**：短期内，贪婪算法显然更占优势，但从长远来看，适当的探索对我们更有利。  
   
-**优缺点: **   
+**优缺点:**   
 ![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/9.png)   
 **优化点：**  
 ![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/10.png)   

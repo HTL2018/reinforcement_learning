@@ -62,42 +62,42 @@
 ![20](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/20.png)   
 ### 2.4 梯度赌博算法 Gradient Bandit Algorithms
 目前我们所讨论的方法都是估计动作值并且用这些估计的数值来选择动作。这确实是一种好的方法，但并不是最佳的方法。现在我们考虑学习对每个动作 a 的数值偏好，用 ![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/22.svg) 表示，![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/22.svg) 值越大，动作被选择的机会越大。但这种偏好在奖赏方面并不会有什么影响，不同动作之间只有相对偏好才重要。如果我们把全部动作偏好都增加1000，那么对于选择动作的概率并没有什么影响，它是由Softmax分布决定：  
-![23](/home/tenglong/0.png)   
-注: ![24](/home/tenglong/0.png) 
+![23](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/23.svg)   
+注: ![24](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/24.svg) 
 基于随机梯度上升的思想，有一个自然学习算法，在每一步中，选择动作之后会收到一个奖赏，通过如下函数更新动作偏好：(这是定义的等式)  
-![25](/home/tenglong/0.png)   
+![25](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/25.svg)   
 其中:  
-![26](/home/tenglong/0.png)   
+![26](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/26.png)   
 > 十臂赌博机上运行梯度算法的结果图，如果基准线被省略那么性能将显着降低(图中 q∗(a) 被选择为接近+4而不是接近零时)  
-> ![27](/home/tenglong/0.png)   
+> ![27](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/27.png)   
 #### 2.4.1 梯度上升算法  
 将梯度赌博算法理解为梯度上升的随机近似（stochastic approximation），每个动作偏好![22](/home/tenglong/0.png) 将随着对性能的影响成比例增加：  
-![26](/home/tenglong/0.png)   
+![26](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/26.svg)   
 其中:  
-![27](/home/tenglong/0.png)   
-注:![28](/home/tenglong/0.png)   
+![27](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/27.svg)   
+注:![28](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/28.svg)   
 增量效应（increment’s effect）的度量是该性能相对于动作偏好的偏导数：  
-![29](/home/tenglong/0.png)   
-加入 ![30](/home/tenglong/0.png)  后上面等式依然能够成立是因为： ![31](/home/tenglong/0.png) ，即梯度在所有动作上总和为零。虽然 ![32](/home/tenglong/0.png) 在改变，引起了一些动作的概率上升而一些动作的概率下降，但是变化的总和必须为零，因为概率之和总是1。  
-接下来，我们将每项乘以![33](/home/tenglong/0.png):   
-![34](/home/tenglong/0.png)   
+![29](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/29.svg)   
+加入 ![30](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/30.svg)  后上面等式依然能够成立是因为： ![31](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/31.svg) ，即梯度在所有动作上总和为零。虽然 ![32](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/32.svg) 在改变，引起了一些动作的概率上升而一些动作的概率下降，但是变化的总和必须为零，因为概率之和总是1。  
+接下来，我们将每项乘以![33](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/33.svg):   
+![34](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/34.svg)   
 现在采用期望的形式，对随机变量 At（在时间步 t 时选择的动作）的所有可能值 x 求和，然后乘以取这些值的概率。从而得到：  
-![35](/home/tenglong/0.png)   
-![36](/home/tenglong/0.png)   
-此时![37](/home/tenglong/0.png) :  
-![38](/home/tenglong/0.png)   
+![35](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/35.svg)   
+![36](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/36.png)   
+此时![37](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/37.png) :  
+![38](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/38.png)   
 ## 3. 关联搜索:上下文赌博机 Contextual Bandits(通俗理解,深入理解最好参照原文)  
-  ![39](/home/tenglong/0.png)   
+  ![39](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/39.jpg)   
   **注意:至此,在上文讨论的多臂赌博机问题中，我们可以认为只有一个赌博机。**
 agent可能的动作就是拉动赌博机中一个机臂，通过这种方式以不同的频率得到+1或者-1的奖励。在这个问题中，agent会永远选择同一个机械臂，该臂带来的回报最多。因此，我们设计的agent完全忽略环境状态，环境状态不会影响我们采取的动作和回报，所以对于所有的动作来说只有一种给定的状态。  
 上下文赌博机问题中带来了**状态**的概念。状态包含agent能够利用的一系列环境的描述和信息。在这个例子中，有多个赌博机而不是一个赌博机，状态可以看做我们正在操作哪个赌博机。我们的目标不仅仅是学习单一赌博机的操作方法，而是很多赌博机。在每一个赌博机中，转动每一个机臂带来的回报都会不一样，我们的agent需要学习到在不同状态下（赌博机）执行动作所带来的回报。  
 ## 4.总结  
 介绍了几种简单的平衡探索和利用的方法:  
-![40](/home/tenglong/0.png) 方法以 ![41](/home/tenglong/0.png) 概率随机选择动作;  
+![40](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/40.svg) 方法以 ![41](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/41.svg) 概率随机选择动作;  
 UCB方法选择确定动作, 但同时UCB又巧妙地设计了在每一步倾向于选择那些搜索到次数更少的样本动作进行探索。  
 梯度赌博算法估计的不是动作值，而是动作偏好，更加倾向于选择`更偏好`的动作(偏好本身对奖励没有影响,偏好本身没有意义,相对偏好才有意义)，而其分布概率方法则采用了Softmax概率分布方法。  
 乐观初始值方法比贪心算法更加显著的进行探索。  
 但很多人会产生一个疑问：这些方法中那个方法最好。我们在此通过parameter study图来给出解答：  
-![42](/home/tenglong/0.png)   
+![42](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/42.png)   
 在方法的选择中我们不仅应该评估其在最优参数下的表现，还要看其对参数的敏感度。所有的这些算法对参数都不敏感，参数在一个数量级内变化时这些算法表现都很好，但**总的来说，UCB表现最佳**.  
 [主要参考](https://zhuanlan.zhihu.com/p/51680852) 

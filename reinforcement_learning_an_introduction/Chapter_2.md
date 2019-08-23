@@ -38,7 +38,7 @@
 ![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/14.png)   
 #### 2.2.2跟踪不稳定问题Tracking a Nonstationary Problem:  
 上述讨论的平均法适用于稳定的赌博机问题，即在赌博机问题中的奖赏分布不会随时间的变化而变化。但强化学习问题又通常是不稳定的，在这种情况下，最近的奖赏相比于前面的奖赏通常占有更重的比值。 解决这类问题的通常方法是固定步长参数,即变形为:  
-![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/14.png)   
+![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_1/14.svg)   
 推导出步长因子与奖赏之间的权重关系，做如下变化：  
 ![16](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_2/16.png)   
 > 第一个条件用于保证执行次数足够多，最终克服任何初始条件或者随机的起伏；  

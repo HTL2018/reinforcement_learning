@@ -2,11 +2,12 @@
 与前一章multi-armed bandit问题相比:  
 > 相同点是都要评估系统反馈.  
 > 不同点:MDP还需要在不同场景下选择不同的行动。  
-  (MDP也是强化学习问题一种数学上理想化的形式)  
-##　3.1 The Agent-Environment Interface　　
+  (MDP也是强化学习问题一种数学上理想化的形式) 
+  
+## 3.1 The Agent-Environment Interface　　
 ### 3.1.1 agent 和 environment相互作用的过程:  
-> ![0](/home/tenglong/0.png)   
-> ![1](/home/tenglong/0.png)   
+> ![0](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/0.jpg)   
+> ![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/1.png)   
    
 任何对受目标引导的行为的学习问题，都可以简化为三个信号在 agent 和 environment 间前后传递的模型：  
 > actions: agent 的决策行动  
@@ -14,12 +15,12 @@
 > rewards: agent 的目标  
   
 简单实例:  
-![3](/home/tenglong/0.png)   
-![4](/home/tenglong/0.png)   
+![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/3.png)   
+![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/4.png)   
 > 注:图中左侧表格中第三行第二列的`high`应改为`rescued`  
 ### 3.1.2 Markov property  和 Markov Decision Processes  
 **Markov property**:  
-![2](/home/tenglong/0.png)   
+![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/2.png)   
 这一假设要求state包含可能对将来造成影响的所有之前的agent与environment的互动信息，这一性质也被称为Markov property.  
 **Markov Decision Processes**:  
 满足Markov property的强化学习任务被称为马尔科夫决策过程(Markov decision process)，简称MDP。  
@@ -33,15 +34,15 @@
 每个时间步的reward是一个数值。  
 ## 3.3 Returns  
 假设t时刻后的reward的序列表示为:  
-![5](/home/tenglong/0.png)   
+![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/5.svg)   
 则**return**收益即累计的reward可如下定义:   
-![6](/home/tenglong/0.png)   
+![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/6.svg)   
 其中T是最后terminal state的时间点，这适用于某些有结局的场景，例如游戏结束或者逃出迷宫，这一类问题被称作**episodic task**, 每一个episode到达最终态后，我们可以将系统重置到初始状态再重头开始下一轮试验.  
 当然，有些问题可能没有终止状态，比如自动驾驶我们希望车可以一直安全的行驶而不出现终止状态，我们称这一类问题为**continuing task**。通常对于这类问题我们会定义一个折扣率，而return也变为**discounted return**：   
-![7](/home/tenglong/0.png)   
-其中:![8](/home/tenglong/0.png) ,叫做discount rate,越接近1，将来的reward所占比重越来越大。  
+![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/7.svg)   
+其中:![8](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/8.svg) ,叫做discount rate,越接近1，将来的reward所占比重越来越大。  
 discounted return的递归形式：  
-![9](/home/tenglong/0.png)   
+![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/9.svg)   
 ## 3.4 Unified Notation for Episodic and Continuing Tasks
 如果episode最终到达一个特殊的吸收态(absorbing state)，这个状态只会转移到自己并且产生的reward是0，那么两种任务就达到了统一。比如说，考虑如下的状态转移示意图：  
 ![11](/home/tenglong/0.png)   

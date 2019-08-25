@@ -26,9 +26,9 @@
 满足Markov property的强化学习任务被称为马尔科夫决策过程(Markov decision process)，简称MDP。  
 如果state和action的空间是有限的，那么该任务被称为有限马尔科夫决策过程(finite Markov decision process)，简称finite MDP。  
 **finite MDP的动态过程**:(这本书提到的大多数的理论不言明都是假定是finite MDP)  
-![12](/home/tenglong/0.png)   
+![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/12.png)   
 给定明确的动态过程，任意其他想知道的关于environment的信息可以被计算得到，比如:  
-![13](/home/tenglong/0.png)   
+![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/13.png)   
 ## 3.2 Goals and Rewards  
 **agent的目标**可以理解为最大化reward的累积和的期望值。  
 每个时间步的reward是一个数值。  
@@ -45,9 +45,9 @@ discounted return的递归形式：
 ![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/9.svg)   
 ## 3.4 Unified Notation for Episodic and Continuing Tasks
 如果episode最终到达一个特殊的吸收态(absorbing state)，这个状态只会转移到自己并且产生的reward是0，那么两种任务就达到了统一。比如说，考虑如下的状态转移示意图：  
-![11](/home/tenglong/0.png)   
+![11](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/11.jpg)   
 可以将episodic task和continuing task的return合并为同一形式：  
-![10](/home/tenglong/0.png)   
+![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/10.svg)   
 ## 3.5 Policies and Value Functions  
 **value functions**是定义在states(或者state-action pairs)上的函数，用来评估agent若处在某个state的好坏(或是评估agent若处在某个state采取某个action的好坏)。  
 > 这里的好坏被定义为期望接收到的future rewards，或者准确说是expected return。当然agent期望得到的future rewards还取决于他所采取的action。因此，value functions由特定的policies决定。  
@@ -55,17 +55,17 @@ discounted return的递归形式：
 policy是将每个state以及每个action映射到某个概率值的函数.  
 **value functions定义**:  
 state-value function:  
-![14](/home/tenglong/0.png)   
+![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/14.png)   
 或者action-value function:  
-![15](/home/tenglong/0.png)   
+![15](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/15.png)   
 **蒙特卡洛方法估计value function**:  
-![16](/home/tenglong/0.png)   
+![16](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/16.png)   
 如果状态空间太大,可以考虑参数化函数近似:  
-![17](/home/tenglong/0.png)   
+![17](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/17.png)   
 **价值函数value functions的Bellman equation**:  
-![18](/home/tenglong/0.png)   
+![18](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/18.png)   
 注:  
-![19](/home/tenglong/0.png)   
+![19](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/19.png)   
 用backup diagram来表示这一关系:  
 ![20](/home/tenglong/0.png)   
 注:  

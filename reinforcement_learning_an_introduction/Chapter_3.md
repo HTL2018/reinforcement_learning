@@ -67,28 +67,28 @@ state-value function:
 注:  
 ![19](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/19.png)   
 用backup diagram来表示这一关系:  
-![20](/home/tenglong/0.png)   
+![20](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/20.jpg)   
 注:  
-![21](/home/tenglong/0.png)   
+![21](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/21.png)   
 > 用图表示了一种关系，这种关系作为强化学习方法的核心，构成了强化学习中更新和传递操作的基准。这种操作将后继的状态(或者state-action对)的value回溯给当前状态(或者state-action对)的value。这本书使用backup diagrams来作为算法的图示总结(需要注意与状态转移图不同，backup diagrams中不同的状态节点可能表示相同的状态，比如说一个状态也可能是它的后继状态。而准确表示方向的箭头也被省略了，因为一般假定时间总是向下流转)。  
 ## 3.6 Optimal Policies and Optimal Value Functions  
 解决一个强化学习任务需要意味着寻找一个从长远角度能够获得足够多的reward的policy。对finite MDP，可以按照如下的方式准确定义一个最优的policy。  
 **Optimal Policies 和 Optimal Value Functions 的定义**:  
-![23](/home/tenglong/0.png)   
-![24](/home/tenglong/0.png)   
+![23](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/23.png)   
+![24](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/24.png)   
 **导出Bellman optimality equation**:  
-![25](/home/tenglong/0.png)   
+![25](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/25.png)   
 optimal state-value和action-value的传递图:  
-![26](/home/tenglong/0.png)   
+![26](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/26.jpg)   
 > 小的改动，agent做选择action的节点由原来直接取policy下的期望值变为添加一段弧来表示选取最大值对应的action。  
 
 说明:  
-![27](/home/tenglong/0.png)   
-![28](/home/tenglong/0.png)   
+![27](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/27.png)   
+![28](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/28.png)   
 optimal action-value function能够在不知道任何关于可能的后继状态以及它们的value取值的情况选择最优的actions，也就是说一旦知道了optimal action-value function，那么选择最优actions无需知道任何关于environment的动态变化信息(dynamics)。  
 **贝尔曼最优方程 应用实例**:  
-![29](/home/tenglong/0.png)   
-![30](/home/tenglong/0.png)   
+![29](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/29.png)   
+![30](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_3/30.png)   
 ## 3.7 Optimality and Approximation  
 实际问题中，Bellman optimality equation可能不易求解，很多强化学习方法就是围绕如何近似求解Bellman optimality equation而进行的。  
 对于我们感兴趣的各种任务，只能以极高的计算成本才能生成最优策略。即使我们有一个完整和准确的环境动态模型， 通常不可能通过求解贝尔曼最优方程来简单地计算最优策略。可用的内存是一个重要的限制。 强化学习问题的框架迫使我们解决近似问题。强化学习的在线性质使得其有可能以更多的方式来近似最优策略，以便为经常遇到的状态作出良好的决策，而不用花费很少的努力来处理不经常遇到的状态。 这是将强化学习与其他方法区分开来，近似解决MDP问题的一个关键属性。  

@@ -6,32 +6,32 @@ DP为这本书剩余部分的方法提供了必要的基础。事实上这些方
 
 **DP的核心思想，包括一般强化学习，是使用value function来搜索好的policy**。本章中我们展示了DP如何计算第三章中定义的value function。  
 一旦有了最优的value function ，最优的policy就很容易得到。最优value function满足Bellman最优方程：  
-![0](/home/tenglong/0.png)   
+![0](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/0.svg)   
 或者  
-![1](/home/tenglong/0.png)   
+![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/1.svg)   
 DP算法就是将如上Bellman方程作为更新法则来获得value function的近似的。  
 ## 4.1 Policy Evaluation(Prediction)  
 总结:  
-![2](/home/tenglong/0.png)   
+![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/2.png)   
 详细如下:  
 首先我们考虑任一policy的state-value function。在DP中这叫做policy evaluation。也可以把它看作prediction problem。  
-![3](/home/tenglong/0.png)   
+![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/3.png)   
 iterative policy evaluation:  
-![4](/home/tenglong/0.png)   
+![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/4.png)   
 full backup:  
-![5](/home/tenglong/0.png)   
+![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/5.png)   
 sweep:  
-![6](/home/tenglong/0.png)   
+![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/6.png)   
 算法的termination:  
-![7](/home/tenglong/0.png)   
+![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/7.png)   
 例:  
-![8](/home/tenglong/0.png)   
+![8](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/8.png)   
 图： iterative policy evaluation在gridworld的收敛性。左边一列是随机policy下对于state-value function的近似的序列。右边一列是当前对于value function的估计下greedy policy的序列（箭头表示此action能获得最大value）。第三次迭代后就能达到最优的policy。  
 ## 4.2 Policy Improvement  
 判断两个policy之间的优劣:  
-![9](/home/tenglong/0.png)   
+![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/9.png)   
 policy improvement theorem证明过程:  
-![10](/home/tenglong/0.png)   
+![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/10.png)   
 policy improvement:  
 ![11](/home/tenglong/0.png)   
 依照原policy下得到的value function采取greedy策略可以提升原policy。这种过程叫policy improvement。Policy improvement一定会给我们一个严格的更好的policy，除非原policy就是最优的。  

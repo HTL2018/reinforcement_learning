@@ -33,31 +33,31 @@ sweep:
 policy improvement theorem证明过程:  
 ![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/10.png)   
 policy improvement:  
-![11](/home/tenglong/0.png)   
+![11](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/11.png)   
 依照原policy下得到的value function采取greedy策略可以提升原policy。这种过程叫policy improvement。Policy improvement一定会给我们一个严格的更好的policy，除非原policy就是最优的。  
 注:(随机policy)  
-![12](/home/tenglong/0.png)   
+![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/12.png)   
 注:(如果最大值对应的action不唯一)  
 另外，如果有一些action能同时达到最大值，在随机情况下，我们并不是只选其中的一个action。作为替代，每个对应最大value的action都被赋予一个被选择的正概率，可以是任意值，只要其他任意非最优的action的概率是0。  
 ## 4.3 Policy Iteration  
-![13](/home/tenglong/0.png)   
+![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/13.png)   
 策略迭代 (Policy Iteration) 的伪代码如下图:  
-![14](/home/tenglong/0.png)   
+![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/14.png)   
 例子:杰克租车:  
-![15](/home/tenglong/0.png)   
+![15](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/15.png)   
 ## 4.4 Value Iteration  
 value iteration 是通过把Bellman最优方程变为更新法则。value iteration backup和policy iteration backup是一样的，除了value iteration需要在所有action中最大化。   
 policy iteration有个缺点就是每次迭代都要有一次policy evaluation，而这个本身可能就需要多轮在整个state集上的sweep的迭代计算。policy evaluation只能再极限处收敛。我们必须要等到确实收敛了？还是说提前终止？截短policy evaluation是可能的。  
 有多种方法能截短policy iteration的policy evaluation步骤而不会影响policy iteration的收敛。**一个特殊的做法是当policy evaluation仅进行一次sweep就停止（每个state一次backup）。这种算法叫value iteration**。其可以用一个简单结合了policy improvement和截短policy evaluation的backup操作表示：  
-![16](/home/tenglong/0.png)   
+![16](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/16.svg)   
 另一种理解价值迭代的方法参考贝尔曼方程(4.1)。注意价值迭代仅仅是将贝尔曼最优方程转变为更新规则。   
 value iteration算法:  
-![17](/home/tenglong/0.png)   
+![17](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/17.jpg)   
 value iteration在自己的一次sweep中结合了policy evaluation的sweep和policy improvement的一次sweep。  
 一次policy improvement的sweep中插入多次policy evaluation的 sweep可以收敛的更快。  
 赌徒问题:  
-![18](/home/tenglong/0.png)   
-![19](/home/tenglong/0.png)   
+![18](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/18.png)   
+![19](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/19.png)   
 ## 4.5 Asynchronous Dynamic Programming   
 到目前为止我们所讨论的DP方法一个主要的缺点是他们涉及整个MDP状态集合，也就是说，需要对整个状态集合进行更新。 如果状态集非常大，即使一次更新(sweep)也会代价很大。  
 Asynchronous DP算法都是in-place迭代DP算法，其不必要对于state集合进行系统地sweep。  
@@ -72,16 +72,16 @@ policy iteration存在两个同时的相互作用的过程，一个使得value f
 我们用generalized policy iteration（GPI）来概括这种让policy evaluation和policy improvement交替进行的方法，而不考虑两个过程的间隔长度（每个执行多少次迭代这样）或者其他的细节。  
 所有的都有可以识别的policies和value functions，其中policy是利用value function来提升的，而value function则是会向着提升后的policy的value function更新。  
 Generalized policy iteration：policy和value function相互作用直到它们都是最优的并且相互一致。GPI的总体思想:  
-![20](/home/tenglong/0.png)   
+![20](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/20.jpg)   
 如果evaluation过程和improvement过程都稳定，那么不会再有步骤改变，然后value function和policy都肯定是最优的。  
 value function只有与当前的policy一致时在稳定，policy只有在其是当前value function下的greedy时才稳定。因此，只有policy发现他是自身的value function的greedy的policy时，两个过程才都稳定。   
 **GPI的evaluation和improvement过程可以看作是竞争和合作**的关系（competing和cooperating）。说他们是竞争关系因为它们互相向相反方向拉。**让policy参照value function 来greedy地采取action，使得value function对于改变过后的policy来说是不正确的。使value function与policy一致又使得policy变得不再greedy。****从长远来看，两者相互作用来寻找一个联合的解决方案：最优的value function和最优的policy。**  
 还可以从两个约束或者目标的角度来看evaluation和improvement之间的相互作用——例如下图二维空间中的两条线：  
-![21](/home/tenglong/0.png)   
+![21](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/21.jpg)   
 ## 4.7 Efficiency of Danamic Programming
 DP对于非常大的问题可能并不奏效。但是相比较于其他解决MDP的方法，DP方法相当有效。  
 如果我们忽略一些技术细节，DP方法寻找最优policy所耗费的时间是state和action数多项式关系。  
-![22](/home/tenglong/0.png)   
+![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_4/22.png)   
 从这个意义上讲，DP比直接在policy空间搜索要快得多（指数级地更快），因为直接搜索需要尽可能地检查每一个policy才能做到相同的效果  
 **线性规划方法**也能被用来解决MDP问题。它们最坏的情况下，对于收敛性的保证也比DP方法好。但是线性规划方法在状态数稍微大一点的情况下就不现实了。   
 **维度诅咒（curse of dimensionality）**，state数通常是随着表示state的变量数指数级增长的。大的state集合并不产生困难，但是这是问题固有的困难，而不是DP的问题。事实上，DP比起其竞争对手直接搜索和线性规划已经更为适合用来解决大的state集问题了。  

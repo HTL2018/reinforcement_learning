@@ -64,7 +64,7 @@ Asynchronous DP算法都是in-place迭代DP算法，其不必要对于state集�
 这些算法以任意顺序用其他任意可获得的state的value来back up 这些state的value。有一些state的value可能被back up若干次而其他state的value只被back up一次。为了正确收敛，**一个asynchronous算法必须继续back up所有state的value**：**不能忽略任意一个state**。Asynchronous DP算法在选择哪些state来进行backup操作上有一定灵活性。   
 避免sweep并不一定就意味着能够有更少的计算量，这是能表示算法在能够提高policy之前不需要被一些没有希望的长时间的sweep束缚住。我们可以利用这种任意选择state来back up的自由性来提升算法的速率。我们也可以尝试将backup进行排序来使得value信息在state之间更有效地传播。一些state可能不需要像别的state一样频繁back up。我们甚至可能试着跳过一些state，如果它们对于最优的bahavior没有影响。   
 Asynchronous算法也能更容易地让实时的interaction与计算混合起来。为了解决一个给定的MDP，我们可以运行一个迭代地DP算法，同时agent也在经历这个MDP。这个agent地经历可以用来决定哪些state用这个DP算法来backup。同时，来自于DP算法的最新的value和policy信息可以知道agent做决策。例如可以backup那些agent遇到的state，这让DP算法专注于那些与agent最相关的state成为可能。
-## 4.6Generalized Policy iteration  
+## 4.6 Generalized Policy iteration  
 policy iteration存在两个同时的相互作用的过程，一个使得value function与当前policy保持一致（policy evaluation），另一个使得policy关于当前的value function最优。（policy improvement）。   
 在policy iteration中，这两个过程相互交替，一个完成了另一个再开始，但这其实是没有必要的。  
 在value iteration中，例如两次policy improvement之间只进行了policy iteration的一次迭代。在asynchronous DP方法中，evaluation和improvement的过程是以相同频率交替进行的。   

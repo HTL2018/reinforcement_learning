@@ -75,7 +75,7 @@ MC方法进行prediction，即已知policy的情况下估计 value function的�
 **有 model 时**，state value就足够可以来决定一个 policy 了；只要向前看一步，选择导致最好的 reward 组合和下一 state 的 action 即可，就像前一章讲 DP 时做的那样.  
 **没有 model 时**，只有 state-value function 是不够的。必须要确切地估计出每个 action 的 value，才能让这些 value 能够得出一个 policy。因此，我们一个首要的目标是估计 ![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/10.svg)   .  
 **如果不能获取到模型， 则估计 action 的 value（state-action 对的 value）比估计 state 的 value 要有用**。  
-因此，我们一个首要的目标是估计![13](/home/tenglong/0.png)   
+因此，我们一个首要的目标是估计![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/13.svg)   
   
 **对于 action value 的 policy evaluation 问题**:   
 也就是估计 ![11](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/11.svg) ，即估计从state s 开始，采取 action a，遵循 policy![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/12.svg) 下的期望的 return。  

@@ -14,7 +14,7 @@
 **Monte Carlo方法**对每个 state-action 对采样并对 return 取均值,**多臂老虎机问题**中采样并对每个 action 的 reward 取均值。   
 **主要区别在于**这里有很多的 states， 可以看作是很多相关联的多臂老虎机问题。 即， 在某个state 执行某个 action 之后得到的 return 取决于在同一个 episode 中，后续的 states 下采取的 actions。 由于所有对 action 的选择都要经过学习，因此在早期的 state下，问题是不稳定的。  
 > 解决这种不稳定问题:  
-> ![0](/home/tenglong/0.png)   
+> ![0](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/0.png)   
 ### 5.0.3 Monte Carlo（MC）的基本思想:  
 1. 用样本分布代替总体分布，估计一些总体分布的参数  
 2. 简单来说，就是假设想知道一些真实分布的一些信息，比如期望，或函数的期望，如果我们不知道真实分布的表达式，或者知道，但是很难推导求解，就需要模拟出一批样本，再做平均，虽然有误差，可只要样本量足够大，根据大数定律还是收敛的   
@@ -22,10 +22,10 @@
 ## 5.1 蒙特卡洛预测 Monte Carlo Prediction  
 MC方法进行prediction，即已知policy的情况下估计 value function的问题。   
 由定义可知: state value function的定义是对于该state的return的期望：   
-![1](/home/tenglong/0.png)   
+![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/1.svg)   
 其中: return 的期望为 : 从这个state开始累加 discounted reward 的期望值。   
 对于MC方法，我们将期望换为了`experience`平均值，在采样数量足够多的情况下，根据大数定律，`experience`平均值会收敛于期望。(`experience`含义见上)  
-假设我们要估计 ![2](/home/tenglong/0.png) ，并且我们有了若干episode的在policy ![3](/home/tenglong/0.png) 下经过state s的采样集合，每经历一次state s，我们称为对 s 的一次访问**`visit`**，在一次episode中，s可能被访问若干次，其中第一次访问称为`first visit`  
+假设我们要估计 ![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/2.svg) ，并且我们有了若干episode的在policy ![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/3.svg) 下经过state s的采样集合，每经历一次state s，我们称为对 s 的一次访问**`visit`**，在一次episode中，s可能被访问若干次，其中第一次访问称为`first visit`  
 因而我们可以有**两种相似但略有不同的MC方式**：  
 **一种是**`first-visit MC`即用每个episode中第一次访问s的return来求经验平均值.  
 **另一种是**`every-visit MC`即用每个episode中所有访问s的return来求经验平均值。(经验:experience 访问: visit, 具体含义见上)  
@@ -33,9 +33,9 @@ MC方法进行prediction，即已知policy的情况下估计 value function的�
 > **first-visit MC**方法研究地更多，也是本章主要关注的重点。  
 > **every-visit MC**方法可以很自然地扩展到function approximation 和 eligibility traces 中，这在之后的第九章和第十二章会进行讨论。   
 ### 5.1.1 First-visit MC 的实现步骤:  
-![4](/home/tenglong/0.png)   
+![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/4.jpg)   
 > 注:   
-> ![5](/home/tenglong/0.png)   
+> ![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/5.png)   
 > 改变框中 first-visit 条件，可以同理得到every-visit。  
 > 对于action value function的MC prediction方法类似，只是将对state的访问转变为对state-action pair的访问。  
 ### 例5.1：二十一点（Blackjack） 
@@ -55,18 +55,18 @@ MC方法进行prediction，即已知policy的情况下估计 value function的�
 
 玩家采用的策略：一直要牌，直到点数和等于20或21时停止。  
 为了使用蒙特卡洛方法找到这个策略下的状态价值函数， 我们使用一个模拟器模拟了许多次的游戏，游戏中玩家使用上述的策略。然后我们将每个状态的回报值求平均，作为对应状态的价值函数。 通过这种方法求得的价值函数如图5.1所示。 可以看到，如果A可用，相对于A不可用，估计的值会有更多不确定性，更加不规则，因为这些状态不是很常见。 经过500,000次的游戏，我们看到价值函数被近似得很好。  
-![6](/home/tenglong/0.png)   
+![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/6.png)   
 **在这个任务中，虽然我们对环境有完全的了解,为何选用ＭＣ而不用ＤＰ？**  
-![7](/home/tenglong/0.png)   
+![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/7.png)   
 ### 例5.2：肥皂泡   
 ![10](/home/tenglong/0.png)   
 假设一根线围成一个闭环，在肥皂水中浸泡后，表面形成了一个肥皂薄膜或者泡泡。 **如果线是不规则的但是已知，如何计算肥皂泡表面的形状**？ 已知泡泡的形状有一个特性：在表面任一点，受到临近的力之和为零（如果不为零，泡泡的形状会改变，直到稳定下来）。 这个性质意味着，泡泡表面上的每一点的高度等于周围点高度的平均值。此外，表面的形状必须符合线形成的边界。 **解决这个问题的常规办法**是，用网格分格这个区域，使用网格上一点的周围点来计算这点的高度，然后迭代地进行。 边界上的点的高度和线上的那点一致，然后其他的点的高度都可以从临近网格的点的高度求平均得到。 这个过程不断的迭代，很像动态规划（DP）迭代策略评估。最终，这个不断迭代的过程会收敛到很接近真实的表面形状。   
 **这个问题和最初设计蒙特卡洛（MC）所涉及的问题是类似的**。除了上述提到的迭代计算的方法，我们还可以想象在表面进行随机漫步。 在网格上的每一点以等概率向临近的点移动，直到到达边界。 结果是，这些边界点的高度求得的期望值即是我们随机漫步起始点的高度（事实上，它恰好等于之前的迭代方法计算得到的值）。 因此，我们能够很好地得到表面上任意一点的高度值。只需要从该点开始，进行许多次随机漫步，然后将所有得到的边界高度值求平均。 如果我们仅仅对某一点或者某一小块区域的高度感兴趣，这个蒙特卡洛（MC）方法要比之前的迭代方法高效的多。   
 ###5.1.2 将 backup diagram (备份图) 的想法推广到蒙特卡洛的算法中  
-![8](/home/tenglong/0.png)   
+![8](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/8.png)   
 这个图表的顶部根节点是我们需要更新的量， 树枝和叶节点分别表示这些转移状态的奖励以及下个状态的估计价值。   
-具体的，对于蒙特卡洛估计 ![9](/home/tenglong/0.png) ，如图中所示，根节点是我们的起始状态的价值，之后的轨迹表示一个特定回合的经历，最后以终止状态结束。   
-**与动态规划（DP）的图表**（![9](/home/tenglong/0.png) 备份图）**对比**:  
+具体的，对于蒙特卡洛估计 ![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/9.svg) ，如图中所示，根节点是我们的起始状态的价值，之后的轨迹表示一个特定回合的经历，最后以终止状态结束。   
+**与动态规划（DP）的图表**（![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/9.svg) 备份图）**对比**:  
 1. 首先，动态规划（DP）的图表展示了所有的转移可能，列出了所有可能的下一状态，而蒙特卡洛（MC）在一个回合里只有一种转移可能。   
 2. 其次，动态规划（DP）只包含了单步的转移状态价值，而蒙特卡洛（MC）表示一个回合从开始到结束的所有状态价值。 这些图表所表现的不同精确地反应了这两种算法的根本性的差异。   
 >1. **需要注意**的是，**蒙特卡洛（MC）方法对每个状态的估计是独立的**，即是说，对这个状态的估计并不取决于其他的状态，这点和动态规划（DP）是一样的。 换句话说，就像我们在前面的章节所提到的，**蒙特卡洛（MC）方法不使用 提升（bootstrap）** 。  

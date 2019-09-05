@@ -73,17 +73,17 @@ MC方法进行prediction，即已知policy的情况下估计 value function的�
 > 2. 特别地，注意到**我们估计每一个特定状态的价值所需要花费的计算开销都是独立于状态数量的**。 所以**当我们只需要一个或者一小部分状态信息时，蒙特卡洛（MC）方法就很有吸引力了**。 我们可以从我们关心的那个状态开始，生成很多回合的样本，然后求它们的回报的均值，而不用管其他的起始状态。 这是蒙特卡洛（MC）方法相对说DP方法的好处（继可以从真实经验和模拟经验中学习之后的第三个好处）。  
 ## 5.2 Monte Carlo Estimation of Action Values(动作价值的蒙特卡洛估计)  
 **有 model 时**，state value就足够可以来决定一个 policy 了；只要向前看一步，选择导致最好的 reward 组合和下一 state 的 action 即可，就像前一章讲 DP 时做的那样.  
-**没有 model 时**，只有 state-value function 是不够的。必须要确切地估计出每个 action 的 value，才能让这些 value 能够得出一个 policy。因此，我们一个首要的目标是估计 ![10](/home/tenglong/0.png)   .  
+**没有 model 时**，只有 state-value function 是不够的。必须要确切地估计出每个 action 的 value，才能让这些 value 能够得出一个 policy。因此，我们一个首要的目标是估计 ![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/10.svg)   .  
 **如果不能获取到模型， 则估计 action 的 value（state-action 对的 value）比估计 state 的 value 要有用**。  
 因此，我们一个首要的目标是估计![13](/home/tenglong/0.png)   
   
 **对于 action value 的 policy evaluation 问题**:   
-也就是估计 ![11](/home/tenglong/0.png) ，即估计从state s 开始，采取 action a，遵循 policy![12](/home/tenglong/0.png) 下的期望的 return。  
+也就是估计 ![11](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/11.svg) ，即估计从state s 开始，采取 action a，遵循 policy![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/12.svg) 下的期望的 return。  
 Monte Carlo 方法对 action value 进行 policy evaluation与之前展示的对于 state value 进行policy evaluation 是一样的，除了我们现在讨论的是对于 state-action 对的 visits，而不是 state。如果 state s 被 visit，然后执行action a ，则称为这个 state-action 对 s,a 被 visit。  
 `every-visit 的 MC 方法`对于所有 visit 后的 return 取均值来估计 state-action 对的 value。`first-visit 的 MC 方法`对在每个 episode 中第一次出现这个 state 并且选择这个 action之后的 return 取均值。这些方法跟之前一样以指数收敛，当对于每个 state-action 对 visit 无穷次后会收敛到真实的期望 value.   
   
 **唯一的困难就是很多 state-action pair一次都不会 visit 到**。  
-如果![12](/home/tenglong/0.png) 是个 deterministic policy，那么遵循![12](/home/tenglong/0.png) 的情况下每个 state 只能观察到（observe）一个 action 的 return。如果没有 return 值来取平均，则 MC 方法其他的 action 的评估并不能随着 experience 提升。   
+如果![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/12.svg) 是个 deterministic policy，那么遵循![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/12.svg) 的情况下每个 state 只能观察到（observe）一个 action 的 return。如果没有 return 值来取平均，则 MC 方法其他的 action 的评估并不能随着 experience 提升。   
 这是一个很严肃的问题因为学习 action 的 value 是为了帮助在每个 state 时在所有可选择的 action 中进行选择。我们需要估计在每个 state 下所有 action 的 value，而不只是当前看中的那个。   
   
 **exploring starts**:  
@@ -93,15 +93,15 @@ exploring starts 的假设有时是有用的，但是并不是一直很可靠，
 ## 5.3 Monte Carlo Control (蒙特卡洛控制)  
 我们现在考虑 Monte Carlo 估计如何应用到 control 问题中，即近似 optimal policy。  
 总体思想跟DP那一章差不多，就是 GPI 的思想。在GPI 中需要有近似的 policy 和近似的 value function。如下图所示，value function 不停迭代近似当前 policy 下的 value function。 policy 也基于当前的 value function 不停提升。两种变化某种程度上可以说是对立的，一种为另一种创建一个目标，但是它们一起迭代得到最优。   
-![13](/home/tenglong/0.png)    
+![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/13.jpg)    
   
-  开始时，我们考虑经典 policy iteration 的Monte Carlo 版本。在这种方法中， 我们从一个任意的policy ![14](/home/tenglong/0.png) 开始交替完成 policy evaluation 和 policy improvement，直到最终得到最优的 policy 和最优的 action-value function：  
-  ![15](/home/tenglong/0.png)   
-  ![16](/home/tenglong/0.png)   
+  开始时，我们考虑经典 policy iteration 的Monte Carlo 版本。在这种方法中， 我们从一个任意的policy ![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/14.svg) 开始交替完成 policy evaluation 和 policy improvement，直到最终得到最优的 policy 和最优的 action-value function：  
+  ![15](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/15.svg)   
+  ![16](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/16.png)   
   
-**policy improvement 是通过基于当前的 value function 采取 greedy 策略来得到的**。这种情况下我们得到的是 action-value function，因此并不需要 model 来帮助建立 greedy 的策略。（译者注，DP那一章计算的是 v ，要想知道每个action对应的 value 就需要有model 来辅助计算，这一章直接计算的是  q ，因此就不需要 model 了）。对于任意的 action-value function  q ，相应的 greedy policy 就是对于每个的 ![17](/home/tenglong/0.png)  ，确定性地选择有最大 action-value 的 action：   
-![18](/home/tenglong/0.png)   
-![19](/home/tenglong/0.png)   
+**policy improvement 是通过基于当前的 value function 采取 greedy 策略来得到的**。这种情况下我们得到的是 action-value function，因此并不需要 model 来帮助建立 greedy 的策略。（译者注，DP那一章计算的是 v ，要想知道每个action对应的 value 就需要有model 来辅助计算，这一章直接计算的是  q ，因此就不需要 model 了）。对于任意的 action-value function  q ，相应的 greedy policy 就是对于每个的 ![17](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/17.svg)  ，确定性地选择有最大 action-value 的 action：   
+![18](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/18.svg)   
+![19](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/19.png)   
 
 **为了保证Monte Carlo 方法的收敛性，我们做出了两个不可能的假设**:  
 一个是episodes 有着 exploring starts  

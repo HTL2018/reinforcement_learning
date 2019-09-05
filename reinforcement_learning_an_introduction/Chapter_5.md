@@ -59,7 +59,7 @@ MC方法进行prediction，即已知policy的情况下估计 value function的�
 **在这个任务中，虽然我们对环境有完全的了解,为何选用ＭＣ而不用ＤＰ？**  
 ![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/7.png)   
 ### 例5.2：肥皂泡   
-![10](/home/tenglong/0.png)   
+![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/10.png)   
 假设一根线围成一个闭环，在肥皂水中浸泡后，表面形成了一个肥皂薄膜或者泡泡。 **如果线是不规则的但是已知，如何计算肥皂泡表面的形状**？ 已知泡泡的形状有一个特性：在表面任一点，受到临近的力之和为零（如果不为零，泡泡的形状会改变，直到稳定下来）。 这个性质意味着，泡泡表面上的每一点的高度等于周围点高度的平均值。此外，表面的形状必须符合线形成的边界。 **解决这个问题的常规办法**是，用网格分格这个区域，使用网格上一点的周围点来计算这点的高度，然后迭代地进行。 边界上的点的高度和线上的那点一致，然后其他的点的高度都可以从临近网格的点的高度求平均得到。 这个过程不断的迭代，很像动态规划（DP）迭代策略评估。最终，这个不断迭代的过程会收敛到很接近真实的表面形状。   
 **这个问题和最初设计蒙特卡洛（MC）所涉及的问题是类似的**。除了上述提到的迭代计算的方法，我们还可以想象在表面进行随机漫步。 在网格上的每一点以等概率向临近的点移动，直到到达边界。 结果是，这些边界点的高度求得的期望值即是我们随机漫步起始点的高度（事实上，它恰好等于之前的迭代方法计算得到的值）。 因此，我们能够很好地得到表面上任意一点的高度值。只需要从该点开始，进行许多次随机漫步，然后将所有得到的边界高度值求平均。 如果我们仅仅对某一点或者某一小块区域的高度感兴趣，这个蒙特卡洛（MC）方法要比之前的迭代方法高效的多。   
 ###5.1.2 将 backup diagram (备份图) 的想法推广到蒙特卡洛的算法中  
@@ -111,17 +111,17 @@ exploring starts 的假设有时是有用的，但是并不是一直很可靠，
 **首先:我们专注于讨论去除 policy evaluation 在无数个 episodes 上进行的假设**:  
 这个假设很好去除。事实上，DP那一章也遇到了一样的问题，比如 iterative policy evaluation，也是渐进收敛到真实的 value function。在DP 和 Monte Carlo 中都有两种方法解决这一问题.  
 **一种是设置一个误差 bound，经过足够的步骤后就能够保证每个 policy evaluation 的误差足够小**。这种方法在很多时候能够保证收敛到一定程度的对于真实 value function的近似，但是也有可能会在哪怕最小的问题中实际上需要太多的 episodes。   
-**第二种避免需要无数个 episodes 的方法是我们放弃完整的 policy evaluation 过程，直接转向 policy improvement**. 每个 evaluation 步骤中，value function 都会向 ![20](/home/tenglong/0.png) 逼近，但是我们并不需要去经过很多步变得足够近。我们用首先在 4.6 节介绍的 GPI 的思想。一个特殊情况就是 value iteration，就是在policy evaluation 中每两次 policy improvement 之间进行一次迭代。 in-place 版本的 value iteration 更为特殊，对单个的 state 交替进行 improvement 和 evaluation 操作。   
+**第二种避免需要无数个 episodes 的方法是我们放弃完整的 policy evaluation 过程，直接转向 policy improvement**. 每个 evaluation 步骤中，value function 都会向 ![20](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/20.svg) 逼近，但是我们并不需要去经过很多步变得足够近。我们用首先在 4.6 节介绍的 GPI 的思想。一个特殊情况就是 value iteration，就是在policy evaluation 中每两次 policy improvement 之间进行一次迭代。 in-place 版本的 value iteration 更为特殊，对单个的 state 交替进行 improvement 和 evaluation 操作。   
   
 对于Monte Carlo 方法，很自然地基于 episode-by-episode 交替进行evaluation 和 improvement。在每个 episode 之后，观察到的 return 被用来 policy evaluation，然后 policy 可以在这个 episode 中 visit 过的 state 上进行提升。**完整的算法如图，这种算法叫 Monte Carlo ES，即 Monte Carlo with Exploring Starts**:  
-![21](/home/tenglong/0.png)   
+![21](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/21.jpg)   
 > 在 Monte Carlo ES 中，对于每个 state-action pair 的 return 进行累加求平均。**很容易看到 Monte Carlo ES 不能收敛到任何非最优的 policy。假设value function 会最终收敛到 非最优的 policy 的 value function，然后反过来会导致这个 policy的改变。只有在 policy 和 value function 都达到最优的时候才能达到稳定**。最终收敛到最优的不动点看上去是必然的，因为 action-value function的改变越来越小。但是还没有被证明。在我们来看，这是强化学习领域最基本的开放性理论问题。  
 ### Example 5.3：Solving Balckjack 
 把 Monte Carlo ES 应用到 balckjack 非常直接。既然 episodes 都是可以仿真的，很容易用 exploring starts。  
 庄家的牌，玩家牌的总和，玩家是否有usable 的 A，都是等概率随机的。  
 初始的 policy 我们用前面 blackjack 例子中的 policy，只在20或者21 stick。  
 初始的 action-value function 对于所有的 state-action pair 都设置为 0。  
-![22](/home/tenglong/0.png)   
+![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/22.jpg)   
 **图中展示了利用 Monte Carlo ES 方法找到的 optimal policy 和 state-value function。其中 state-value function 是利用 action-value function 计算的**。这个policy 与Thorp （1966）的基本策略一致，除了最左边有 usable 的A 情况下的凹凸部分，在 Thorp 的策略中没有体现。我们对于这种差异的原因也不确定，但是确信的是这里展示的确实是我们所描述的 blackjack 游戏的 optimal policy。  
 ## 5.4 Monte Carlo Control without Exploring Starts(不带有探索性初始化的蒙特卡洛控制)  
 主要是为了解决第二个不可能的假设(即避免不可能的 exploring starts 的假设).  
@@ -130,17 +130,17 @@ exploring starts 的假设有时是有用的，但是并不是一直很可靠，
 **off-policy 方法 **evaluate 或者 improve 的 policy 不同于产生数据的 policy。   
 Monte Carlo ES 方法是一个 on-policy 方法的例子。  
 **本节主要展示如何把一个 on-policy 的Monte Carlo control 方法设计为不需要 exploring starts 这一不现实的假设的**。off-policy在下一小节考虑。  
-![23](/home/tenglong/0.png)   
+![23](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/23.png)   
 on-policy 的 Monte Carlo control 的总体思想仍然跟 GPI 一样。在 Monte Carlo ES 中，我们用 first-visit MC 方法来估计当前 policy 下的 action-value function。不需要 exploring starts 的假设，但是我们不能简单通过基于当前的 value function 采取 greedy 策略来提升 policy，因为这会导致未来缺乏对 nongreedy actions 的 exploration。幸运的是，GPI 不需要 policy 一直是一个 greedy policy。  
-![24](/home/tenglong/0.png)   
+![24](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/24.png)   
 完整的算法如下:  
-![25](/home/tenglong/0.png)   
-**一个证明: 证明![27](/home/tenglong/0.png)**:   
-![26](/home/tenglong/0.png)   
-**一个证明: 证明![28](/home/tenglong/0.png) ![29](/home/tenglong/0.png)**   
-![30](/home/tenglong/0.png)   
+![25](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/25.jpg)   
+**一个证明: 证明![27](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/27.png)**:   
+![26](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/26.png)   
+**一个证明: 证明![28](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/28.png) ![29](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/29.png)**   
+![30](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/30.png)   
 注:  
-![31](/home/tenglong/0.png)   
+![31](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/31.png)   
 ## 5.5 通过重要性采样的离策略预测 Off-policy Prediction via Importance Sampling  
 **所有的学习控制方法都会面临一个难题**：  
 > 它们基于后来的 optimal behavior 来学习 action values，但是它们却需要 behave non-optimally 来 explore 所有的 actions （来找到最优的 actions）。   
@@ -160,29 +160,29 @@ on-policy 的 Monte Carlo control 的总体思想仍然跟 GPI 一样。在 Mont
 > 另一方面，off-policy 方法更强大更具一般性。其可以把on-policy 看作一种特殊情况，target 和 behavior policies 刚好一样。  
 > off-policy learning 还可以看作是学习多步预测模型的关键所在。  
 
-本节中，通过考虑 prediction（预测）问题来研究 off-policy 方法，其中 target 和 ![32](/home/tenglong/0.png)   
+本节中，通过考虑 prediction（预测）问题来研究 off-policy 方法，其中 target 和 ![32](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/32.png)   
 
 **覆盖（coverage） 假设**:  
-![33](/home/tenglong/0.png)   
+![33](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/33.png)   
 **importance sampling(重要性采样)方法**:  
  `importance sampling 方法`: 是利用一个分布的采样来估计另一个分布期望值的方法。几乎所有 off-policy 方法度采用了 importance sampling 的方法.    
- `importance sampling ratio`: 把 importance sampling 方法应用到 off-policy 学习中，根据在 target 和 behavior policy 下发生的 trajectories (trajectory就是state， action，reward的一连串序列![34](/home/tenglong/0.png) ) 的相对概率来对 return 取权重。这种方法叫 importance sampling ratio。  
+ `importance sampling ratio`: 把 importance sampling 方法应用到 off-policy 学习中，根据在 target 和 behavior policy 下发生的 trajectories (trajectory就是state， action，reward的一连串序列![34](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/34.svg) ) 的相对概率来对 return 取权重。这种方法叫 importance sampling ratio。  
   `importance sampling ratio的计算方式:`  
   基于target 和 behavior policies 的 trajectory 的相对概率:  
-![35](/home/tenglong/0.png)   
+![35](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/35.png)   
 > 注意到上式中的trajectory的概率依赖于MDP的转移概率（常常是未知的），但是它们在分子和分母中都是相同的，能够被消掉。 即是说，**重要性采样率最终仅仅依赖于两个策略和序列，而与MDP无关**。   
 
 `ordinary importance sampling`:  
-![36](/home/tenglong/0.png)   
+![36](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/36.png)   
 `weighted importance sampling`定义为:  
-![37](/home/tenglong/0.png)   
+![37](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/37.svg)   
 分母为 0 时，该式定义为 0。  
 > 注: **上面两式中,和中的每个元素本身也是和：**
-![64](/home/tenglong/0.png)   
+![64](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/64.jpg)   
   
 **通俗的理解这两种形式的importance sampling的不同**:  
 > 为了理解这两种形式的 importance sampling,考虑他们观测到**一个**return 后的估计值。  
-> **weighted-average 估计中**，比例![38](/home/tenglong/0.png) 对于**单次** return 来说分子分母同时消去了，所以估计值等于观察到的 return 值，而与比例无关（假设这个比例非 0）。假设这个 return 是唯一观测到的，则这个估计是合理的，但是其期望是![39](/home/tenglong/0.png) 而不是![40](/home/tenglong/0.png) ，从统计上讲，这是有偏的。   相比之下:  
+> **weighted-average 估计中**，比例![38](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/38.svg) 对于**单次** return 来说分子分母同时消去了，所以估计值等于观察到的 return 值，而与比例无关（假设这个比例非 0）。假设这个 return 是唯一观测到的，则这个估计是合理的，但是其期望是![39](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/39.svg) 而不是![40](/home/tenglong/0.png) ，从统计上讲，这是有偏的。   相比之下:  
 > **简单取平均的（5.4）期望**总是 ![40](/home/tenglong/0.png),这是无偏的），但是很容易走极端。假设比例是 10，表示观测到的 trajectory 是在 target policy 的可能性十倍于 behavior policy 的可能性。这种情况下 ordinary importance-sampling 估计会十倍于观测到的 return。也就是即使这个 episode 的 trajectory 被认为非常能代表 target policy，其估计也会与观测到的 return 相去甚远。   
   
 **正式地，两种 importance sampling 的差异**:  

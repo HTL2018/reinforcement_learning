@@ -182,8 +182,8 @@ on-policy 的 Monte Carlo control 的总体思想仍然跟 GPI 一样。在 Mont
   
 **通俗的理解这两种形式的importance sampling的不同**:  
 > 为了理解这两种形式的 importance sampling,考虑他们观测到**一个**return 后的估计值。  
-> **weighted-average 估计中**，比例![38](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/38.svg) 对于**单次** return 来说分子分母同时消去了，所以估计值等于观察到的 return 值，而与比例无关（假设这个比例非 0）。假设这个 return 是唯一观测到的，则这个估计是合理的，但是其期望是![39](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/39.svg) 而不是![40](/home/tenglong/0.png) ，从统计上讲，这是有偏的。   相比之下:  
-> **简单取平均的（5.4）期望**总是 ![40](/home/tenglong/0.png),这是无偏的），但是很容易走极端。假设比例是 10，表示观测到的 trajectory 是在 target policy 的可能性十倍于 behavior policy 的可能性。这种情况下 ordinary importance-sampling 估计会十倍于观测到的 return。也就是即使这个 episode 的 trajectory 被认为非常能代表 target policy，其估计也会与观测到的 return 相去甚远。   
+> **weighted-average 估计中**，比例![38](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/38.svg) 对于**单次** return 来说分子分母同时消去了，所以估计值等于观察到的 return 值，而与比例无关（假设这个比例非 0）。假设这个 return 是唯一观测到的，则这个估计是合理的，但是其期望是![39](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/39.svg) 而不是![40](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/40.svg) ，从统计上讲，这是有偏的。   相比之下:  
+> **简单取平均的（5.4）期望**总是 ![40](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/40.svg),这是无偏的），但是很容易走极端。假设比例是 10，表示观测到的 trajectory 是在 target policy 的可能性十倍于 behavior policy 的可能性。这种情况下 ordinary importance-sampling 估计会十倍于观测到的 return。也就是即使这个 episode 的 trajectory 被认为非常能代表 target policy，其估计也会与观测到的 return 相去甚远。   
   
 **正式地，两种 importance sampling 的差异**:  
 > 两种 importance sampling 的差异,**一般用其偏差（bias）和方差（variance）来描述**。  
@@ -211,26 +211,26 @@ on-policy 的 Monte Carlo control 的总体思想仍然跟 GPI 一样。在 Mont
 在这个例子中，我们要评估的state 是庄家两点，玩家点数和为13，有一个 usable A（也就是玩家有一张A一张2，或者三张A）。  
 从此 state 开始，然后等概率随机选取 hit 或者 stick（behavior policy）。target policy 是只在和为 20 或者 21 时 stick，如 Example 5.1 提到的那样。在 target policy 下该 state 的 value近似为 -0.27726 （这是在 target policy 下产生一亿个 episodes 然后对 returns 取均值得到的）。  
 两种 off-policy 方法都在采取随机 policy 产生 1000 次 off-policy episodes 后取得了很好的近似。为了保证实验的可靠性，我们跑了 100 次，每一次估计的初始值都为 0，并从 10000 个 episodes 中学习。图5.3展示了每种方法估计的误差随着 episodes 数变化的函数关系，从100次运行中取平均。两种方法误差都趋近于 0，但是 weighted importance-sampling 在开始时误差小得多。  
-![41](/home/tenglong/0.png)   
+![41](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/41.png)   
 ### Example 5.5： Infinite Variance  
 ordinary importance sampling 的估计一般有无穷的方差，所以当 return 也有着无穷的方差时，其收敛性不令人满意，缩放的回报都有无限的方差—当 trajectory 中包含有循环时，很容易在 off-policy 学习中发生。   
 一个简单的例子时图5.4中那样。只有一个 nonterminal state s 和两个 actions，向左和向右(向左即图中的left,向右即图中的right)。  
 **向右**会导致一定变为 termination，而**向左**则会使 0.9 的概率回到 s ，0.1的概率转为 termination。  
 除了最后的转移的 reward 为 +1，其余均为 0。   
 考虑 target policy 为一直向左，所有在此 policy 下产生的 episodes 会有一些转变回  s （有可能数目为 0）然后 termination， reward 和 return 都为 +1。  
-因此 s 在这个 target policy 下，value 为 1（ ![42](/home/tenglong/0.png) ）。假设我们要从用 behavior policy（等概率选择向左或者向右）产生的 off-policy 数据中估计这个 value。  
-![43](/home/tenglong/0.png)   
-> 图5.4的下半部分展示了利用 ordinary importance sampling 的 first-visit MC 算法的 10次独立运行。即使由数百万的 episodes，估计值也不能收敛到正确的 value 1。相反地，weighted importance sampling 在以向左这个 action 结束的episode 后总是能给出准确的估计值 1.所有不是 1 的 return（即以向右做结尾）将会与 target policy 不一致，则其权重 ![44](/home/tenglong/0.png) 为 0，在（5.5）的分子或者分母上均不起作用。weighted importance sampling 算法产生与 target policy 一致的 return 的加权平均，这些都准确是 1。   
+因此 s 在这个 target policy 下，value 为 1（ ![42](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/42.svg) ）。假设我们要从用 behavior policy（等概率选择向左或者向右）产生的 off-policy 数据中估计这个 value。  
+![43](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/43.png)   
+> 图5.4的下半部分展示了利用 ordinary importance sampling 的 first-visit MC 算法的 10次独立运行。即使由数百万的 episodes，估计值也不能收敛到正确的 value 1。相反地，weighted importance sampling 在以向左这个 action 结束的episode 后总是能给出准确的估计值 1.所有不是 1 的 return（即以向右做结尾）将会与 target policy 不一致，则其权重 ![44](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/44.svg) 为 0，在（5.5）的分子或者分母上均不起作用。weighted importance sampling 算法产生与 target policy 一致的 return 的加权平均，这些都准确是 1。   
 **证明这个例子中 importance-sampling-scaled returns 的方差是无限的**:  
 > 所有随机变量的方差可以写为:  
-> ![45](/home/tenglong/0.png)   
+> ![45](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/45.png)   
 > 因此，如果均值是有限的，像这个例子中一样，当且仅当随机变量的平方的期望是无限时,方差是无限的。  
-> ![46](/home/tenglong/0.png)   
+> ![46](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/46.jpg)   
 > 为了计算这个期望，我们将其按照 episode 的长度和 termination 分开。  
 > 对于以向右结束的 episode，其 importance sampling ratio 是 0，因为 target policy 不会采取向右这个 action。 这些 episodes 对于期望值没有影响，可以忽略。  
-> 我们只需要考虑那些向左的 action 并且最终以向左结尾的 episodes，这些 episodes 的 return 都是 1，所以![47](/home/tenglong/0.png) 项可以忽略。  
+> 我们只需要考虑那些向左的 action 并且最终以向左结尾的 episodes，这些 episodes 的 return 都是 1，所以![47](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/47.svg) 项可以忽略。  
 为了得到平方的期望值，我们只需要考虑每个长度的 episode，将这个episode 发生的概率乘上其 importance-sampling ratio，然后加起来：得到:  
-![48](/home/tenglong/0.png)   
+![48](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/48.jpg)   
 ## 5.6 增量实现 Incremental Implementation  
 Monte Carlo prediction 方法可以用增量的方法处理，利用类似第二章介绍的方法（2.4节）。  
 不同的是, 第二章我们是对 reward 取均值，在Monte Carlo 方法中对 return 取均值。其他方面都一样.  
@@ -238,12 +238,12 @@ Monte Carlo prediction 方法可以用增量的方法处理，利用类似第二
 对于 off-policy 方法，我们需要对 ordinary importance sampling 和 weighted importance sampling 分开考虑。  
 > **在 ordinary importance sampling 中**，return 会乘上 importance sampling ratio  ，然后简单取均值。对于这些方法，我们可以再次利用第二章的增量实现方法，直接用放缩过的 return 值替代第二章之中的 reward 即可。但是不能直接用在那些用 weighted importance sampling 的 off-policy 方法。  
 > **对于用 weighted importance sampling 的 off-policy 方法**:  
-![49](/home/tenglong/0.png)   
-![50](/home/tenglong/0.png)   
+![49](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/49.png)   
+![50](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/50.png)   
   
 下图展示了 **Monte Carlo policy evaluation 的 incremental Implementation 算法**。  
-![51](/home/tenglong/0.png)   
-![52](/home/tenglong/0.png)   
+![51](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/51.png)   
+![52](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/52.jpg)   
 ## 5.7 Off-policy Monte Carlo Control (离策略蒙特卡洛控制)  
 现在我们展示第二类本书中学习控制的方法：**off-policy 方法**。  
 > on-policy 是估计一个 policy 的 value，同时也用这个来进行 control。  
@@ -253,39 +253,39 @@ Monte Carlo prediction 方法可以用增量的方法处理，利用类似第二
 Off-policy Monte Carlo 控制（control）方法采用前两小节展示的技术。  
 > 遵循 behavior policy 而学习提升 target policy。这种技术需要 behavior policy 在所有 target policy 可能采取的 actions 上面的概率都非 0（coverage）。为了探索所有的可能性，我们需要 behavior policy 是 soft 的（i.e.，soft 意味着所有 states 下的所有 actions 的选择概率都非 0）.  
   
-  ![53](/home/tenglong/0.png)   
-  ![55](/home/tenglong/0.png)   
+  ![53](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/53.png)   
+  ![55](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/55.jpg)   
   **一个隐含问题**:  
-  > **这种方法只在 episode 结束时学习，如果 nongreedy actions 很常见，则学习会非常慢，尤其是对于那些出现在长 episode 早期的 states**。关于 off-policy Monte Carlo 方法中这个问题有多严重还没有足够的经验去验证。如果很严重，则最重要的解决方法是加上 temporal-difference learning，这种算法思想会在下一章介绍。作为替代，如果![54](/home/tenglong/0.png) ，则下一小节介绍的思想也很有用。  
+  > **这种方法只在 episode 结束时学习，如果 nongreedy actions 很常见，则学习会非常慢，尤其是对于那些出现在长 episode 早期的 states**。关于 off-policy Monte Carlo 方法中这个问题有多严重还没有足够的经验去验证。如果很严重，则最重要的解决方法是加上 temporal-difference learning，这种算法思想会在下一章介绍。作为替代，如果![54](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/54.svg) ，则下一小节介绍的思想也很有用。  
 ## 5.8 *Discounting-aware Importance Sampling (折扣的重要性采样)  
 **目前考虑的 off-policy 方法是**基于将 return 看作整体分配权重进行 importance-sampling 看作整体，而不是考虑 return 的内部结构，看作discounted rewards 的和。  
 **这种思想的本质是**将 1-discounting 看作 termination 的概率，或者等价地，a degree of partial termination。  
 我们现在简单介绍**利用结构信息来减少 off-policy 方差**的前沿思想。  
-![56](/home/tenglong/0.png)   
-![57](/home/tenglong/0.png)   
-> 简单的理解, 可以把![58](/home/tenglong/0.png) 理解为 `此步` 不结束(termination)的概率, 把1-![58](/home/tenglong/0.png) 理解为 `此步` 结束的概率(度, degree)   
+![56](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/56.png)   
+![57](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/57.png)   
+> 简单的理解, 可以把![58](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/58.svg) 理解为 `此步` 不结束(termination)的概率, 把1-![58](/home/tenglong/0.png) 理解为 `此步` 结束的概率(度, degree)   
 > flat partial returns 就是一种恒等变换,可以展开推导得到.  
   
-![59](/home/tenglong/0.png)   
-![60](/home/tenglong/0.png)   
+![59](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/59.png)   
+![60](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/60.png)   
 相应的ordinary importance-sampling 定义为:  
-![61](/home/tenglong/0.png)   
+![61](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/61.png)   
 相应的weighted importance-sampling 定义为:  
-![62](/home/tenglong/0.png)   
+![62](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/62.jpg)   
 两式相比: 分子一样,分母变化.  
-![63](/home/tenglong/0.png)   
+![63](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/63.png)   
 ## 5.9 *Per-reward Importance Sampling(*per-reward 重要性抽样)    
 还有一种方法也考虑了 return 的内部架构，这种方法甚至在没有 discounting 情况下（ [公式] ），也能够减少方差。  
 在（5.4）（5.5）中，分子上求和的每一项本身也是个求和：  
-![64](/home/tenglong/0.png)   
+![64](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/64.jpg)   
 off-policy 依赖于这些项的期望值。  
 注意到（5.10）每一个子项都是一个随机 reward 与随机的 importance-sampling ratio 的乘积。例如第一项用（5.3）式可以写为  
-![65](/home/tenglong/0.png)   
+![65](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/65.png)   
 注意所有这些因式中，只有第一项和最后一项（reward）是相关的，其他的都是独立随机变量，期望值为 1：  
-![66](/home/tenglong/0.png)   
+![66](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/66.png)   
 由于独立随机变量乘积的期望等于它们期望的乘积，所有的这些比例值除了第一项其他都可以丢弃，因此可以变形为:  
-![67](/home/tenglong/0.png)   
-![68](/home/tenglong/0.png)   
+![67](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/67.jpg)   
+![68](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/68.png)   
 有没有 weighted importance sampling 的 per-reward 版本？  
 迄今为止我们所知道的已经提出的一些方法还不是很符合（它们不能在有无穷多的数据之后收敛到真实的 value）.  
 ##  5.10 Summary(总结)  
@@ -317,16 +317,8 @@ off-policy 依赖于这些项的期望值。
   > 第二，它们不 bootstrap。因为他们不基于别的 value 来更新。这两种区别并不紧密联系，可以被分开。  
   
   下一章，我们考虑像 Monte Carlo 方法一样从 experience 学习，但是也像 DP 一样 bootstrap。
-
-
-
-
-
-
-
-
-
-
+  
+  
 
 [参考1](https://zhuanlan.zhihu.com/p/58870476)   
 [参考2](https://zhuanlan.zhihu.com/p/53229050)   

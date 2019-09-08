@@ -3,35 +3,35 @@ temporal-difference (TD) learning是**是蒙特卡洛思想和动态规划(DP)�
 **与蒙特卡洛方法类似**，TD方法可以直接从原经验数据中学习，而不需要知道环境的动态更新模型。  
 **与动态规划方法类似**，TD方法更新的估计值一定程度上依赖于其他的估计值，而不是等待最终的结果(they bootstrap)。  
 > 第七章将会介绍n-step算法，这种算法搭建了从TD到蒙特卡洛方法的桥梁.  
-> 第十二章将会介绍TD(![0](/home/tenglong/0.png) )算法，这种算法统一了它们。  
+> 第十二章将会介绍TD(![0](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/0.svg) )算法，这种算法统一了它们。  
 
 本章仍然从**策略评估(policy evaluation)或预测(prediction)问题**出发.  
-> 建立给定策略![1](/home/tenglong/0.png) 对应的value function ![2](/home/tenglong/0.png)  的估计。对于控制(control)问题(寻找最优策略)，  
+> 建立给定策略![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/1.svg) 对应的value function ![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/2.svg)  的估计。对于控制(control)问题(寻找最优策略)，  
 >  对于**控制问题**（找到最优策略），DP、TD和蒙特卡洛方法都使用广义策略迭代（GPI）的一些变体。 方法的差异主要在于它们对预测问题的方法的差异。  
 ##  6.1 TD Prediction  
 TD和蒙特卡洛方法都是利用经验数据来解决prediction问题。   
-给定一些服从策略![1](/home/tenglong/0.png)的经验数据，两种方法都是更新经验数据中出现的非终止状态 ![3](/home/tenglong/0.png)  的value function ![2](/home/tenglong/0.png)   对应的 V 。   
+给定一些服从策略![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/1.svg)的经验数据，两种方法都是更新经验数据中出现的非终止状态 ![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/3.svg)  的value function ![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/2.svg)   对应的 V 。   
 **蒙特卡洛方法与TD方法的对比**:  
-> ![4](/home/tenglong/0.png)   
+> ![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/4.png)   
 > ![46](/home/tenglong/0.png)   
 > ![47](/home/tenglong/0.png)   
 
 **TD(0)方法的算法流程**:  
-> ![5](/home/tenglong/0.png)   
+> ![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/5.jpg)   
 
 TD(0)方法的更新一定程度上基于已有的估计值，这和DP一样，都属于bootstrapping的方法。  
 第三章中有如下表达式:  
-![6](/home/tenglong/0.png)   
+![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/6.svg)   
 大体来说，蒙特卡洛方法使用(6.3)式作为目标，而DP方法使用(6.4)式作为目标。  
 **蒙特卡洛方法的目标是一种估计是因为**(6.3)式的期望值是未知的。一次采样中的return就被用来替代实际的期望return。  
 **DP方法的目标是一种估计**:  
-> ![7](/home/tenglong/0.png)   
+> ![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/7.png)   
   
 **TD方法的目标也是一种估计**:  
-> ![8](/home/tenglong/0.png)   
+> ![8](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/8.png)   
   
 **TD方法结合了蒙特卡洛方法的采样和DP方法的bootstrapping。TD(0)方法的回溯图:**:  
-> ![9](/home/tenglong/0.png)   
+> ![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/9.png)   
 > 图中顶端状态节点的估计值的更新依赖于一次从它转移到下一状态的采样。  
 > 我们将TD和蒙特卡洛方法的更新称为样本更新(sample updates)，因为它们都包含考虑后继状态(或者state-action pair)的样本，并且采用后继状态的估计值以及到达这一后继状态过程中所接受到的reward值来回溯到顶端节点计算状态value，从而更新相应状态(或者state-action pair)value的估计值。  
 > 样本更新与DP方法的期望更新不同在样本更新是基于后继状态的一个样本而不是基于所有可能的后继状态的分布信息。  

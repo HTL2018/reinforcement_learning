@@ -13,8 +13,8 @@ TD和蒙特卡洛方法都是利用经验数据来解决prediction问题。
 给定一些服从策略![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/1.svg)的经验数据，两种方法都是更新经验数据中出现的非终止状态 ![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/3.svg)  的value function ![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/2.svg)   对应的 V 。   
 **蒙特卡洛方法与TD方法的对比**:  
 > ![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/4.png)   
-> ![46](/home/tenglong/0.png)   
-> ![47](/home/tenglong/0.png)   
+> ![46](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/46.png)   
+> ![47](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/47.png)   
 
 **TD(0)方法的算法流程**:  
 > ![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/5.jpg)   
@@ -142,20 +142,20 @@ Example 6.4展示了**batch TD(0)方法以及batch蒙特卡洛方法的估计的
   > ![39](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/39.png)   
 ## 6.7 Maximization Bias and Double Learning  
 **maximization bias**:  
-  > ![40](/home/tenglong/0.png)   
+  > ![40](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/40.png)   
 
 **Example 6.7: Maximization Bias Example** :  
-> ![41](/home/tenglong/0.png)   
+> ![41](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/41.png)   
 
 **能够避免maximization bias的算法---double learning的思想**:  
-> ![42](/home/tenglong/0.png)   
+> ![42](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/42.png)   
 
 **将double learning的思想拓展到full MDPs的算法中**:  
-> ![43](/home/tenglong/0.png)   
+> ![43](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/43.png)   
 
 **完整的Double Q-learning算法如下图给出**:  
 > 这个算法也是图6.16中结果对应的算法，图6.16反映了这个算法似乎消除了maximization bias造成的损失。当然，对于Sarsa和Expected Sarsa，也有相应的double learning的版本。  
-> ![44](/home/tenglong/0.png)   
+> ![44](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/44.jpg)   
 ## 6.8 Games, Afterstates, and Other Special Cases  
 > 这本书希望能够提出一个针对一大类任务的统一方法，但是通常总有例外的任务，这些任务需要特殊处理才能有更好的效果。  
   
@@ -163,7 +163,7 @@ Example 6.4展示了**batch TD(0)方法以及batch蒙特卡洛方法的估计的
 > 比如说，一个一般方法是学习action-value function，但是在第1章中我们提出了一种学会tic-tac-toe的TD方法，这个TD方法训练的结果更像state-value function。如果我们更细致地分析那个例子，其实比较容易看出学习到的function通常既不是action-value function也不是state-value function。一个传统的state-value function对那些agent可以选择action的状态进行评估，但是tic-tac-toe中使用的state-value function却是估计的玩家选择action后的棋盘位置，这被称为afterstates，value function相应称为afterstate value functions。当我们知道environment的部分动态变化过程(无需全部知晓)时afterstates是很有用的。比如说，在一些games中，我们可以知道我们选择的action随即的效果。我们知道落子后各个棋子的位置，但是不知道对手的应对方式。afterstate value functions可以有效利用这种关于environment的knowledge，因此可以产生一种更为有效的方法。  
   
 从tic-tac-toe的例子可以看出设计考虑afterstates的算法是更为有效的。一个传统的action-value function会将每个位置和每个移动映射到一个value的评估值。但是**许多position-move pairs会得到相同的位置结果**，比如图6.18
-> ![45](/home/tenglong/0.png)   
+> ![45](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/45.png)   
   
 **afterstates在很多任务中都会出现，而不仅仅在game中**。  
 > 比如在排队任务中，有一些关于分配客户给服务人员、拒绝客户的actions。在这种情形下，actions事实上是定义在它们造成的影响上的，这是完全可以获知的。   

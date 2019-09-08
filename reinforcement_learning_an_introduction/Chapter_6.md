@@ -73,22 +73,22 @@ TD(0)方法的更新一定程度上基于已有的估计值，这和DP一样，�
 > 当专注于预测问题的时候，通常仅仅考虑MRP，此时没有必要考虑因为agent的影响改变environment动态过程。  
 > 在这个MRP中，所有的episode都从中心状态C开始，然后在每个时间步以相同的概率向左或者向右前进一个状态节点。当到达最左边或者最右边的状态时，episodes终止。除了终止在最右边状态处得到+1的reward外，到达其它状态的reward都是0。  
 > 比如说，一个可能的episode包括如下的state-and-reward序列：C,0,B,0,C,0,D,0,E,1。这一任务不考虑衰减，因此每一状态的实际value就是从该状态开始终止在最右边状态的概率。因此，中心状态的实际value是![18](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/18.svg) ，而所有状态的实际value从左到右依次为![19](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/19.svg) 。   
-> ![20](/home/tenglong/0.png)   
+> ![20](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/20.png)   
   
 ##  6.3 Optimality of TD(0)  
 假设只有有限数目的经验数据，比如10个episode或者100个时间步。   
 **batch updating方法**:  
 > 在这种情形下，**一种适用于增量学习方法的通用的策略是重复使用这些经验数据直至方法收敛到一个结果**。给定一个近似的value function V，(6.1)式以及(6.2)式明确的增量在每一次访问一个非终止的节点的时间步时都会被计算，但是value function通过求取所有增量的和却只改变了一次，然后所有可获得的经验数据在新的value function上通过产生全部新的增量又一遍被学习。就这样进行下去，直至value function收敛。**这种方法被称为batch updating**，因为更新只在学习完一个完整地batch的训练数据后才会进行。  
 
-对于batch updating，只要step-size参数![21](/home/tenglong/0.png) 充分小，TD(0)方法便确切地收敛到一个与![21](/home/tenglong/0.png) 无关的结果。在同样的条件下，constant-![21](/home/tenglong/0.png)  MC方法确切地收敛到一个与上述不同的结果。  
+对于batch updating，只要step-size参数![21](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/21.svg) 充分小，TD(0)方法便确切地收敛到一个与![21](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/21.svg) 无关的结果。在同样的条件下，constant-![21](/home/tenglong/0.png)  MC方法确切地收敛到一个与上述不同的结果。  
 **理解这两个结果可以助于理解两种方法的区别**。在通常的更新中，方法并不一定一直往各自的batch结果更新，而是在某种意义上往这些方向更新。为了更好理解在任意任务中的两种结果，**先看一些实例**。   
 **Example 6.3: Random walk under batch updating**:  
-> ![22](/home/tenglong/0.png)   
+> ![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/22.png)   
 > 蒙特卡洛方法只是在有限的情况下是最优的，而TD方法最优性的表现方式与预测return更为相关。  
 
 **Example 6.4: You are the Predictor**  
-> ![23](/home/tenglong/0.png)   
-> ![24](/home/tenglong/0.png)   
+> ![23](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/23.png)   
+> ![24](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/24.png)   
   
 Example 6.4展示了**batch TD(0)方法以及batch蒙特卡洛方法的估计的一般差异**:  
 >**batch蒙特卡洛方法总是最小化训练集上关于value估计的均方误差，而batch TD(0)方法总是寻求马尔科夫过程的最大似然估计**。  
@@ -98,19 +98,19 @@ Example 6.4展示了**batch TD(0)方法以及batch蒙特卡洛方法的估计的
 
 **TD方法比蒙特卡洛方法收敛更快的原因**:  
 > 在batch形式下，TD(0)方法比蒙特卡洛方法收敛更快是因为它计算了实际的certainly-equivalence estimate。  
-> nonbatch TD(0)比constant-![25](/home/tenglong/0.png) MC方法收敛更快是因为它趋于一个更好的估计，即使它并不总是趋于更好的估计。   
-> ![26](/home/tenglong/0.png)   
+> nonbatch TD(0)比constant-![25](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/25.svg) MC方法收敛更快是因为它趋于一个更好的估计，即使它并不总是趋于更好的估计。   
+> ![26](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/26.png)   
 
 **尽管certainly-equivalence estimate在某种意义上是最优解，但是直接计算几乎是不可行的。在状态数很多的任务上，TD方法可能是近似certainly-equivalence解答的唯一可行方法**:  
-> ![27](/home/tenglong/0.png)   
+> ![27](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/27.png)   
 ## 6.4 Sarsa: On-policy TD Control  
 接下来考虑将TD预测方法用在control问题上，通常我们会遵循general policy iteration(GPI)的模式，只有这一次使用TD方法作为评估或者预测的部分。  
 与蒙特卡洛方法相似，我们需要平衡exploration和exploitation，进而方法被分成了两类：**on-policy和off-policy**。**这一小节将介绍一种on-policy的基于TD的control方法**。   
 **一种on-policy的基于TD的control方法---Sarsa算法**:  
-> ![28](/home/tenglong/0.png)   
+> ![28](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/28.png)   
   
 **Sarsa算法的backup diagram**见下图:  
-> ![29](/home/tenglong/0.png)   
+> ![29](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/29.png)   
   
  **一般形式的Sarsa control算法如下图**:  
  > ![30](/home/tenglong/0.png)   

@@ -113,33 +113,33 @@ Example 6.4展示了**batch TD(0)方法以及batch蒙特卡洛方法的估计的
 > ![29](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/29.png)   
   
  **一般形式的Sarsa control算法如下图**:  
- > ![30](/home/tenglong/0.png)   
+ > ![30](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/30.png)   
  
  **Example 6.5: Windy Gridworld**:   
- > ![31](/home/tenglong/0.png)   
+ > ![31](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/31.png)   
 ##  6.5 Q-learning: Off-policy TD Control  
 **一种off-policy TD control算法---Q-learning方法**:   
- > ![32](/home/tenglong/0.png)   
+ > ![32](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/32.png)   
 
 **Q-learning算法流程图**:  
-> ![33](/home/tenglong/0.png)   
+> ![33](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/33.jpg)   
 
 **Q-learning算法的backup diagram**:  
-> ![34](/home/tenglong/0.png)   
+> ![34](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/34.png)   
 > 关于Q-learning算法的backup diagram，(6.8)式更新的是一个state-action pair，因此回溯图的根节点是小的实心点表示的action节点，而更新的数值同样也是源自action节点，选取的是下一状态可能的actions中action-value最大对应的节点，因此回溯图的叶节点应该是所有的这些action节点。需要注意的是我们选取的是最大值，通常用一段弧表示，这跟这个系列文章里图3.6右图相似。Q-learning算法的backup diagram见上图。  
 
 **Example 6.6: Cliff Walking**:  
-> ![35](/home/tenglong/0.png)   
+> ![35](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/35.png)   
 ## 6.6 Expected Sarsa
 **Expected Sarsa算法**:  
-> ![36](/home/tenglong/0.png)   
+> ![36](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/36.png)   
 
 **Expected Sarsa的backup diagram**:  
-> ![37](/home/tenglong/0.png)   
+> ![37](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/37.png)   
   
 **Expected Sarsa与Sarsa与Q-learning在cliff-walking任务上的性能对比**:  
-  > ![38](/home/tenglong/0.png)   
-  > ![39](/home/tenglong/0.png)   
+  > ![38](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/38.png)   
+  > ![39](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/39.png)   
 ## 6.7 Maximization Bias and Double Learning  
 **maximization bias**:  
   > ![40](/home/tenglong/0.png)   

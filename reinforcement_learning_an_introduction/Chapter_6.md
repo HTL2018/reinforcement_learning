@@ -52,7 +52,8 @@ TD(0)方法的更新一定程度上基于已有的估计值，这和DP一样，�
 >  蒙特卡洛方法(左)与TD方法(右)在driving home例子上的比较:  
 > ![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/12.jpg)   
 > 蒙特卡洛方法的分析:  
-> ![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/13.png) 
+> ![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/13.png)    
+
 > TD方法的分析:  
 > ![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_6/14.png)   
 ## 6.2 Advantages of TD Prediction Methods

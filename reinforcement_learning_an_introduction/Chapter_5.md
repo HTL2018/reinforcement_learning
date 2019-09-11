@@ -127,7 +127,7 @@ exploring starts 的假设有时是有用的，但是并不是一直很可靠，
 主要是为了解决第二个不可能的假设(即避免不可能的 exploring starts 的假设).  
 **唯一保证所有的 actions 都被无限地选择的方法是让 agent 持续地选择这些 actions**。有两种方法可以保证，分别为 on-policy 方法和 off-policy 方法。  
 **On-policy 方法**尝试 evaluate 或者 improve 那个做决策的 policy  
-**off-policy 方法 **evaluate 或者 improve 的 policy 不同于产生数据的 policy。   
+**off-policy 方法**evaluate 或者 improve 的 policy 不同于产生数据的 policy。   
 Monte Carlo ES 方法是一个 on-policy 方法的例子。  
 **本节主要展示如何把一个 on-policy 的Monte Carlo control 方法设计为不需要 exploring starts 这一不现实的假设的**。off-policy在下一小节考虑。  
 ![23](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/23.png)   
@@ -263,7 +263,7 @@ Off-policy Monte Carlo 控制（control）方法采用前两小节展示的技�
 我们现在简单介绍**利用结构信息来减少 off-policy 方差**的前沿思想。  
 ![56](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/56.png)   
 ![57](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/57.png)   
-> 简单的理解, 可以把![58](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/58.svg) 理解为 `此步` 不结束(termination)的概率, 把1-![58](/home/tenglong/0.png) 理解为 `此步` 结束的概率(度, degree)   
+> 简单的理解, 可以把![58](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/58.svg) 理解为 `此步` 不结束(termination)的概率, 把1-![58](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/58.svg) 理解为 `此步` 结束的概率(度, degree)   
 > flat partial returns 就是一种恒等变换,可以展开推导得到.  
   
 ![59](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/59.png)   
@@ -275,7 +275,7 @@ Off-policy Monte Carlo 控制（control）方法采用前两小节展示的技�
 两式相比: 分子一样,分母变化.  
 ![63](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/63.png)   
 ## 5.9 *Per-reward Importance Sampling(*per-reward 重要性抽样)    
-还有一种方法也考虑了 return 的内部架构，这种方法甚至在没有 discounting 情况下（ [公式] ），也能够减少方差。  
+还有一种方法也考虑了 return 的内部架构，这种方法甚至在没有 discounting 情况下(![58](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/58.svg)=1)，也能够减少方差。  
 在（5.4）（5.5）中，分子上求和的每一项本身也是个求和：  
 ![64](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/64.jpg)   
 off-policy 依赖于这些项的期望值。  

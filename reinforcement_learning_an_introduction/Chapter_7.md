@@ -12,43 +12,43 @@
 `n-step TD方法`:一种中间的方法可以按照下面的方式更新 state 的 value：它基于下面不至一步的 reward 序列，但不使用后续剩下的全部 reward。   
 > 比如说，一个 two-step 的方法会基于下面两个 reward 以及两步之后的 state 的 value 估计更新当前 state 的 value。类似地，可以得到 three-step 更新、four-step 更新等等。  
   
-  如下图展示了对 ![0](/home/tenglong/0.png) 的 **n-step 更新的回溯图**，其中最左边是 one-step TD 更新，从左向右逐渐转化为蒙特卡洛更新:  
-  ![1](/home/tenglong/0.png)   
+  如下图展示了对 ![0](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/0.svg) 的 **n-step 更新的回溯图**，其中最左边是 one-step TD 更新，从左向右逐渐转化为蒙特卡洛更新:  
+  ![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/1.png)   
     
   **n-step TD 方法**:  
   应用 n-step 更新的方法仍然属于 TD 方法，因为它们仍然`基于后续 state 的` value 估计来改变之前 state 的 value 估计，只是现在之后的状态估计不是一个时间步后的，而是 `n 个时间步`后的。temporal difference 扩展到 n 个时间步的方法称为 `n-step TD 方法`。  
 > 前一章介绍的TD方法均采用的是 one-step 更新，这也是我们称它为 one-step TD 方法的原因。  
   
   **n-step TD 方法的严格描述**:  
-  > ![2](/home/tenglong/0.png)   
+  > ![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/2.png)   
   > 注:  
-  > ![3](/home/tenglong/0.png)   
+  > ![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/3.png)   
   
   **n-step TD的算法描述**:  
- >  ![4](/home/tenglong/0.png)   
+ >  ![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/4.jpg)   
  
  **error reduction property**:  
->  ![5](/home/tenglong/0.png)   
+>  ![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/5.png)   
 > 更直观的解释:  
-> ![6](/home/tenglong/0.png)   
+> ![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/6.png)   
   >  n-step TD 方法的收敛性由 error reduction property 这一性质来保证.有了这个性质，理论上可以证明 n-step TD 确实能够收敛。因此 n-step TD 方法构成了一类合理的方法，而 one-step TD 方法和蒙特卡洛方法都是这种方法的极端情形的形式。  
   
  **Example 7.1: n-step TD Methods on the Random Walk**  
- > ![7](/home/tenglong/0.png)   
+ > ![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/7.png)   
 
 ## 7.2 n-step Sarsa  
 n-step方法不仅可以用来 prediction，还可以用来 control。  
 **本节内容**:  介绍如何**将n-step方法直接结合 Sarsa** 构造一个on-policy的TD control方法，称之为 **n-step Sarsa**。  
 前面一章提到的 Sarsa 后面称它为 one-step Sarsa，用 Sarsa(0) 表示。  
 **n-step 方法的回溯图**:  
-> ![8](/home/tenglong/0.png)   
+> ![8](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/8.png)   
 > 注意:  
 > n-step Sarsa的回溯图(图7.3)，与n-step TD的回溯图(图7.1)相似，**由交替变化的 states 和 actions 组成**，不同的是 **Sarsa 的根节点和叶节点都是表示 actions 而不是 states**(对比之下,n-step 方法的根节点和叶节点都是表示 states而不是actions)  。   
 > 倒数第二列为 Monte Carlo 方法.(**无穷步的Sarsa即为Monte Carlo方法**).  
 > 最右边是 **n-step Expected Sarsa** 的回溯图。  
 
 **算法的核心想法是**:  
->将 prediction 问题中的 states 替换成 actions (state-action pairs)，然后使用 ![9](/home/tenglong/0.png) -greedy策略。   
+>将 prediction 问题中的 states 替换成 actions (state-action pairs)，然后使用 ![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/9.svg) -greedy策略。   
 
 **n-step Sarsa算法的更新公式**:  
 > 我们根据estimated action values **重新定义 n-step returns** (update targets)为:  

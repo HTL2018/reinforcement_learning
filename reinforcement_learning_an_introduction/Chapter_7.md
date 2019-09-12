@@ -1,6 +1,6 @@
 # Chapter 7 n-step Bootstrapping( n 步自助法)  
  **本章内容**: 主要是将前面的 MC 和 1-step TD 方法做了一个整合，提出了 n-step TD 方法。   
-** 内容顺序安排**: 先考虑 prediction 问题然后再考虑 control 问题。即,先考虑 n-step 方法如何在给定策略时预测 return，然后我们拓展到 action values 以及 control 的方法。  
+**内容顺序安排**: 先考虑 prediction 问题然后再考虑 control 问题。即,先考虑 n-step 方法如何在给定策略时预测 return，然后我们拓展到 action values 以及 control 的方法。  
 **`n-step TD` 方法的优点**:  
  > 1.  不管是 `MC 方法`还是 `TD 方法`都不能总保证算法性能最好。这一章将提出 n-step 方法，这个方法可以概括前面提到的两种方法。因此对于特定任务的需求，我们**可以平稳地从一种方法过渡到另一种方法**。n-step TD方法涵盖了很大范围，其中一端是 MC 方法，而另一端是单步的TD方法。最佳的方法通常位于两个极端方法的中间。   
  > 2. n-step TD 方法的另一种优点在于**它使我们不再局限于时间步**。(在 one-step TD 方法中，同样的时间步明确了 action 变化的频率以及 bootstrapping 进行的时间间隔。)在很多应用中，我们希望 action 能够很快更新，这样任何已经发生的变化都会被算法考虑进去。但是`当经过一段重要且可辨识的状态变化发生的时间步上时，bootstrapping的效果才最好`。如果使用 one-step TD 方法，这些时间间隔是一样的，因此需要一些折中。n-step方法可以让 bootstrapping 出现在多个不同的时间步上，而不受单个时间步的限制。  
@@ -52,13 +52,13 @@ n-step方法不仅可以用来 prediction，还可以用来 control。
 
 **n-step Sarsa算法的更新公式**:  
 > 我们根据estimated action values **重新定义 n-step returns** (update targets)为:  
-> ![10](/home/tenglong/0.png)   
+> ![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/10.png)   
 
 **n-step Sarsa 算法的的伪代码**:  
-> ![11](/home/tenglong/0.png)   
+> ![11](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/11.jpg)   
 
 **n-step Sarsa 方法能够加速 one-step Sarsa 方法的原因**:  
-> ![12](/home/tenglong/0.png)   
+> ![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/12.png)   
 > 图7.4 展示了 n-step Sarsa 方法能够加速 one-step Sarsa 方法的原因。  
 > 左图表示一个 episode 中 agent 选取的路径，路径终止于对应高 reward 的状态 G。在这个例子中除到达状态 G 是正的 reward 外，别的对应的 reward 都是 0。  
 > 另两张图展示了通过这个 episode 的训练 one-step 和 n-step 方法加强的 action value。  
@@ -66,22 +66,22 @@ n-step方法不仅可以用来 prediction，还可以用来 control。
 
 **Expected Sarsa 的 n-step 的形式**:  
 > Expected Sarsa 的 n-step 的形式的回溯图见图7.3最右侧。  
-> 和 n-step Sarsa 一样，它包含了一个action和state构成的序列，只是**最后出现了分支，表示最后一个状态下所有可能的action，各个叶节点包含根据策略 ![13](/home/tenglong/0.png)  选取该 action 的概率**。  
+> 和 n-step Sarsa 一样，它包含了一个action和state构成的序列，只是**最后出现了分支，表示最后一个状态下所有可能的action，各个叶节点包含根据策略 ![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/13.svg)  选取该 action 的概率**。  
 > 算法和 n-step Sarsa 基本一致，只需要将 n-step return 重新定义为：  
-> ![14](/home/tenglong/0.png)   
+> ![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/14.png)   
 ## 7.3 n-step Off-policy Learning by Important Sampling  
 **off-policy**:   
-> 之前提过 `off-policy` 通过按照策略 b 交互的数据来学习策略![13](/home/tenglong/0.png) 的 value function。通常 ![13](/home/tenglong/0.png) 是按照当前 action-value function 估计的贪心策略，而 b 是某种更偏向 exploratory 的策略，比如 ![15](/home/tenglong/0.png) -greedy。为了使用来自策略 b 的数据，我们必须考虑两种策略之间的差异, 使用采用策略的相对概率(见章节5.5)。   
+> 之前提过 `off-policy` 通过按照策略 b 交互的数据来学习策略![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/13.svg) 的 value function。通常 ![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/13.svg) 是按照当前 action-value function 估计的贪心策略，而 b 是某种更偏向 exploratory 的策略，比如 ![15](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/15.svg) -greedy。为了使用来自策略 b 的数据，我们必须考虑两种策略之间的差异, 使用采用策略的相对概率(见章节5.5)。   
 
 **importance sampling ratio**:  
-> 在 n-step 方法中，returns是构建在 n 个时间步之上的，所以我们只考虑这 n  个 actions 的相对概率。比如说，在一种 n-step TD 方法 off-policy 的简单形式里，对时间步 `t` 的更新(实际在时间步`t+n`进行)可以简单地加以权重![16](/home/tenglong/0.png):    
-> ![17](/home/tenglong/0.png)   
-> 如果这些 actions 中存在一个 action 始终不会被策略![13](/home/tenglong/0.png)选取(也就是 ![18](/home/tenglong/0.png)  )，那么 n-step return 赋予的权重为 0，因此 n-step return 会被忽略。  
-> 另一方面，如果凑巧一个 action 在 ![13](/home/tenglong/0.png) 中选择的概率远大于在策略  `b` 中的，那么相应的权重会增加。这是合理的，因为这个 action 是策略 ![13](/home/tenglong/0.png) 的特有的(因此我们要学习它)，但是都在源自策略 `b` 的数据中它很少会出现，因此我们在它出现时赋予它较大的更新权重。  
+> 在 n-step 方法中，returns是构建在 n 个时间步之上的，所以我们只考虑这 n  个 actions 的相对概率。比如说，在一种 n-step TD 方法 off-policy 的简单形式里，对时间步 `t` 的更新(实际在时间步`t+n`进行)可以简单地加以权重![16](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/16.svg):    
+> ![17](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/17.png)   
+> 如果这些 actions 中存在一个 action 始终不会被策略![13](/home/tenglong/0.png)选取(也就是 ![18](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/18.svg)  )，那么 n-step return 赋予的权重为 0，因此 n-step return 会被忽略。  
+> 另一方面，如果凑巧一个 action 在 ![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/13.svg) 中选择的概率远大于在策略  `b` 中的，那么相应的权重会增加。这是合理的，因为这个 action 是策略 ![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/13.svg) 的特有的(因此我们要学习它)，但是都在源自策略 `b` 的数据中它很少会出现，因此我们在它出现时赋予它较大的更新权重。  
 > 注意到如果两种策略完全一样(on-policy)，那么 importance ratio 始终是 1。因此新的更新公式(7.7)涵盖并可以替换之前介绍的 n-step TD 更新。  
 
 **将n-step Sarsa更新公式替换成如下的 off-policy 的形式**:  
-> ![19](/home/tenglong/0.png)   
+> ![19](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/19.png)   
 
 **算法的伪代码**:  
 > ![20](/home/tenglong/0.png)   

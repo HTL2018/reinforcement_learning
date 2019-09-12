@@ -127,7 +127,7 @@ exploring starts 的假设有时是有用的，但是并不是一直很可靠，
 主要是为了解决第二个不可能的假设(即避免不可能的 exploring starts 的假设).  
 **唯一保证所有的 actions 都被无限地选择的方法是让 agent 持续地选择这些 actions**。有两种方法可以保证，分别为 on-policy 方法和 off-policy 方法。  
 **On-policy 方法**尝试 evaluate 或者 improve 那个做决策的 policy  
-**off-policy 方法 **evaluate 或者 improve 的 policy 不同于产生数据的 policy。   
+**off-policy 方法**evaluate 或者 improve 的 policy 不同于产生数据的 policy。   
 Monte Carlo ES 方法是一个 on-policy 方法的例子。  
 **本节主要展示如何把一个 on-policy 的Monte Carlo control 方法设计为不需要 exploring starts 这一不现实的假设的**。off-policy在下一小节考虑。  
 ![23](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/23.png)   

@@ -84,14 +84,14 @@ n-step方法不仅可以用来 prediction，还可以用来 control。
 > ![19](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/19.png)   
 
 **算法的伪代码**:  
-> ![20](/home/tenglong/0.png)   
+> ![20](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/20.jpg)   
 
 **n-step Expected Sarsa 的 off-policy 形式**:  
-> ![21](/home/tenglong/0.png)   
+> ![21](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/21.png)   
 ## 7.4 *Per-reward Off-policy Methods  
 前面展示的 multi-step off-policy 非常简单且概念上很清楚，但有可能不是最有效的。   
 一种更高端的方法是用5.9节介绍的 `per-reward importance sampling`的思想。为了理解这种方法，先来看普通的 n-step return （7.1）可以采用递归的写法：  
-![22](/home/tenglong/0.png)   
+![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/22.png)   
 本小节，前面小节以及第五章所用的 importance sampling 使得 off-policy 学习成为可能。但是也付出了**增加更新所带来的方差**的代价。  
 **高方差**使得我们要用小步长参数，使得学习很缓慢。一般情况下，off-policy 训练要比 on-policy 训练要慢——毕竟，数据与要学的东西相关性要小一些。  
 但是，我们这里提的方法很可能都是可以提升的。一种可能是根据观察到的方差快速自适应调整步长。下一小节我们考虑没有采用 importance sampling 的 off-policy 方法。  
@@ -101,26 +101,26 @@ n-step方法不仅可以用来 prediction，还可以用来 control。
   
 **算法的思想**(不使用 importance sampling 的 off-policy 的多步算法):  
 > 用下图的三步 tree-backup 回溯图（backup diagram）来介绍:  
-> ![23](/home/tenglong/0.png)   
+> ![23](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/23.png)   
 > **backup diagram 的解读**:  
 > 顺着中线往下且标注的是三个采样的 states 和 rewards 以及 两个采样的 actions。这些是表示发生在初始 state-action pair `St`， `At` 的事件的随机变量。 挂在每个 state 旁边的是没被选到的 actions。（对于最后的 state， 所有的 actions 都被看做还没被选择）。由于我们没有未被选择 action 的采样数据，我们 `bootstrap`(我们引导并使用它们的值估计来形成更新目标)，利用他们的 value 来构成更新需要的目标（target）。  
 > 这稍微拓展了一下回溯图的思想。  
 > 现在，我们已经更新了图最顶端的节点的估计 value，更新目标结合了随之而来的 rewards（适当衰减了）和底端节点的估计 values。  
 >**在 tree-backup ，目标包含了所有层上所有悬挂在一边的 actions 的估计 value。这是被称作 tree-backup 的原因，这是利用整个树中所有的估计 action values 进行的更新**。   
 > **更准确地表述**:  
-> ![24](/home/tenglong/0.png)   
+> ![24](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/24.png)   
 
 我们可以将这个三步 tree-backup 的更新看做包括 6 个半步（half-step），在`从一个 action开始到随后的 state 采样` 半步以及`考虑所有在此 policy 下选择 action 的概率的求期望` 半步。  
 
 **相关公式推导**:   
-> ![25](/home/tenglong/0.png)   
-> ![26](/home/tenglong/0.png)   
-> ![27](/home/tenglong/0.png)   
+> ![25](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/25.png)   
+> ![26](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/26.png)   
+> ![27](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/27.png)   
 > 没有衰减相乘的可以看作衰减因子为1。则n-step Sarsa 中用来更新 action-value 的目标为:  
-> ![28](/home/tenglong/0.png)   
+> ![28](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/28.svg)   
 
 **算法伪代码**:  
-> ![29](/home/tenglong/0.png)   
+> ![29](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/29.jpg)   
 ## 7.6 *A Unifying Algorithm: n-step Q(σ)  (\*统一算法：n步 Q(σ))    
 本章到目前为止我们已经考虑了三种不同的 action-value 算法，对应于图7.5展示的前三个回溯图。  
 > `n-step Sarsa` 是基于所有实际采样的数据.  
@@ -133,20 +133,20 @@ n-step方法不仅可以用来 prediction，还可以用来 control。
 > 这种方法有其他很多种可能，就像下图这样的。我们甚至可以考虑在采样和去期望之间连续变化。  
 
 **backup diagram**:   
-> ![30](/home/tenglong/0.png)   
+> ![30](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/30.png)   
 
 **n-step Q(σ)相关公式推导**:  
-> ![31](/home/tenglong/0.png)   
-> ![32](/home/tenglong/0.png)   
-> ![33](/home/tenglong/0.png)   
+> ![31](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/31.png)   
+> ![32](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/32.jpg)   
+> ![33](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/33.png)   
 
 **算法伪代码**:  
-> ![34](/home/tenglong/0.png)   
+> ![34](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/34.jpg)   
 ## 7.7 Summary  
 在本章中我们已经拓展了一系列的介于之前章节介绍的单步 TD 方法 以及 MC 方法之间的 temporal-difference learning 方法。  
 有着中等数量的 bootstrapping 很重要，因为它们一般表现地会比取极端要好（单步 TD 以及 MC）。  
  我们本章主要集中于 n-step 方法。下面两个 4-step 回溯图一起总结了本章的方法。   
-> ![35](/home/tenglong/0.png)   
+> ![35](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_7/35.png)   
 > 带有 importance sampling 的 n-step TD 的 state-value 更新以及 n-step `Q(σ)` 的 action-value 更新。这些是 Expected Sarsa 和 Q-learning 的推广。  
 > 所有的 n-step 方法在更新前都会有一个 `n` **时间步的延迟**，因为只有这样所需要的未来事件才能知晓。  
 > **一个缺点**相比较于之前的方法是每一个时间步都会需要更多的计算。与 one-step 方法相比，n-step 需要更多的存储空间来记录 states，actions，rewards，有时还有前 n 步的别的信息。  

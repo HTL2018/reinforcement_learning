@@ -275,7 +275,7 @@ Off-policy Monte Carlo 控制（control）方法采用前两小节展示的技�
 两式相比: 分子一样,分母变化.  
 ![63](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/63.png)   
 ## 5.9 *Per-reward Importance Sampling(*per-reward 重要性抽样)    
-还有一种方法也考虑了 return 的内部架构，这种方法甚至在没有 discounting 情况下（ https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/58.svg =1），也能够减少方差。  
+还有一种方法也考虑了 return 的内部架构，这种方法甚至在没有 discounting 情况下(![58](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/58.svg)=1)，也能够减少方差。  
 在（5.4）（5.5）中，分子上求和的每一项本身也是个求和：  
 ![64](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_5/64.jpg)   
 off-policy 依赖于这些项的期望值。  

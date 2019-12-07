@@ -37,8 +37,8 @@
   
 ### 8.1.2`planning` 术语的含义:     
 在不同领域中，`planning`规划 这个词以几种不同的方式使用。 我们使用该术语来**指代将模型作为输入并生成或改进与建模环境交互的策略的任何计算过程**：    
- >   ![0](/home/tenglong/0.png)   
- > ![1](/home/tenglong/0.png)   
+ >   ![0](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/0.png)   
+ > ![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/1.png)   
    
 ### 8.1.3  状态空间规划(State-space planning)和规划空间规划(plan-space planning):   
 我们的定义中的**两种不同的规划方法:状态空间规划(State-space planning)和规划空间规划(plan-space planning)**;  
@@ -52,7 +52,7 @@
 >（1）所有状态空间规划方法都将计算价值函数作为改进策略的关键中间步骤，  
 >（2）它们通过应用于模拟经验的更新或备份操作计算价值函数。  
 > 这种通用结构可以表示如下：  
-> ![2](/home/tenglong/0.png)   
+> ![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/2.png)   
 
 
 **动态规划dynamic programming方法显然适合这种结构**：  
@@ -79,7 +79,7 @@
 > 这种方法，我们称之为 *随机样本一步表格Q-planning*，  
 > 在一步表格Q-learning收敛于真实环境的最优策略的相同条件下，收敛到模型的最优策略（必须在步骤1中无限次地选择每个状态-动作，并且 :math:`\alpha` 必须随时间适当减小）。  
 > **算法伪代码**:  
-> ![3](/home/tenglong/0.png)   
+> ![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/3.png)   
 > [Q learning的一个经典例子(讲述非常清晰)](https://blog.csdn.net/itplus/article/details/9361915)  
   
 ### 8.1.6 **本章的两个主题**:  
@@ -100,7 +100,7 @@
 > 前者称为`模型学习model learning`，后者称为`*直接强化学习direct reinforment learning*` （直接RL）。  
 
 ### 8.2.1 **下图总结了经验，模型，价值和策略之间可能存在的关系(The possible relationships between experience, model, values, and policy)**:  
-> ![4](/home/tenglong/0.png)   
+> ![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/4.png)   
 > 每个箭头显示影响和推测改善的关系。请注意，经验如何通过模型直接或间接地改进价值函数和策略,后者，有时被称为 *间接强化学习*，参与规划。   
 
 **直接和间接方法对比**:  
@@ -116,7 +116,7 @@
 在规划期间，`Q-planning算法`仅从先前已经经历过的状态-动作对中随机采样（在步骤1中）， 因此永远不会使用它没有信息的状态-动作对来查询模型。   
 ### 8.2.2 Dyna agents(个体)的整体架构:      
 其中Dyna-Q算法就是一个例子，如下图8.2所示。   
-![5](/home/tenglong/0.png)   
+![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/5.png)   
 图中说明:  
 > 中间栏代表了个体与环境之间的基本互动，从而产生了真实经验的轨迹。   
 > 图左侧的箭头表示根据实际经验进行的直接强化学习，以改善价值函数和策略。   
@@ -133,7 +133,7 @@
  我们假设在行动，模型学习和直接RL之后的每个步骤中有时间来完成Q-plainning算法的n次迭代（步骤1-3）。  
   在下面框中的Dyna-Q的伪代码算法中， Model(s,a) 表示状态-动作对 (s,a) 的（预测的下一状态和奖励）的内容。 直接强化学习，模型学习和规划分别通过步骤（d），（e）和（f）实施。如果省略（e）和（f），则剩余算法将是一步表格Q-learning。  
 **Dyna-Q的伪代码**:  
-> ![6](/home/tenglong/0.png)   
+> ![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/6.png)   
 ### 8.2.4  Example: Dyna Maze (例8.1：Dyna迷宫)   
 **游戏描述**:   
 >考虑图8.3 中的简单迷宫。   
@@ -141,7 +141,7 @@
 > 所有过渡的奖励都是零，除了那些进入目标状态的过程，奖励是 :`+1`。
 在达到目标状态（**G**）之后，个体返回到开始状态（**S**）以开始新的回合。  
 > 这是一个折扣的`\gamma=0.95`，episodic的任务。   
-![7](/home/tenglong/0.png)   
+![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/7.png)   
 
 **游戏相关设置**:  
 > 图8.3的主要部分显示了将Dyna-Q个体应用于迷宫任务的实验的平均学习曲线。
@@ -165,7 +165,7 @@
 > 此策略由规划过程构建，而个体仍然在启动状态附近徘徊。到第三回合结束时，将找到完整的最优政策并获得完美的表现。  
 >为什么带有planning操作的agent会更快地找到最优解？结合伪代码分析，可以发现，在第一个episode中，有planning和无planning没有太多差异，因为这时候无论在那个状态，选哪个动作，如何planning，只要下个状态不是目标状态，Q都是0，没有任何更新，同样policy也不会有实质上的更新（某个状态的所有动作对应的Q都相同，都一样好、一样差），唯一更新的是最后一步，也就是目标状态之前的那个状态。   
 > 而当第二个episode开始之后，由于第一个episode仅有一个状态的policy更新了，那么这唯一的状态就像引信，通过planning，引爆了与它相关的一系列新的状态更新，而这些状态又引爆了和它们相关的更多的状态更新。这就是planning的威力。  
-![8](/home/tenglong/0.png)   
+![8](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/8.png)   
 > 图中黑色方块表示个体的位置。  
 > 注意到，第二副图，agent其实还在初始状态附近，然而它的planning范围已经快遍布整个迷宫了。  
 这种感觉就像：learning算法在表层接受实时环境信息（real experience）更新价值函数，而planning算法在深层通过这些少量的新的环境信息，模拟生成更多的信息，大范围更新model和价值函数。  
@@ -197,16 +197,16 @@
 > 图表的第一部分显示两个Dyna个体都在1000步内找到了短路径。  
 > 当环境发生变化时，图表变得平坦，这是个体没有获得奖励的时期，因为他们在屏障后面徘徊。  
 > 然而，过了一段时间，他们能够找到新的开口和新的最佳行为。  
-![9](/home/tenglong/0.png)   
+![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/9.png)   
   
 当环境变得比以前变得**更好**时，会出现更大的困难，但以前正确的策略并未显示出改善。 在这些情况下，如果有的话，可能无法长时间检测到模型的错误。  
 **例8.3：捷径迷宫(引入启发式搜索,使得在环境变好时也可以纠正模型)**
-> ![10](/home/tenglong/0.png)   
+> ![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/10.png)   
  这里的一般问题是探索和利用之间冲突的另一种形式。在规划环境中，探索意味着尝试改进模型的行动， 而利用意味着在给定当前模型的情况下以最佳方式行事。 我们希望个体进行探索以查找环境中的更改，但不要太多，以至于性能会大大降低。 与早期的探索/利用冲突一样，可能没有完美和实用的解决方案，但简单的启发式方法往往是有效的。  
 
 解决了捷径迷宫的Dyna-Q+个体使用了一种这样的启发式方法。  
 **这种启发式方法的基本思想**:  
-> ![11](/home/tenglong/0.png)    
+> ![11](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/11.png)    
 ## 8.4 优先扫描  
 在前面部分中介绍的Dyna agents中，模拟转换(simulated transitions)是从所有先前经历过的状态-动作对中随机均匀选择的状态-动作对开始的。  但uniform的选择通常不是最好的；**如果模拟转换和更新专注于特定的状态-动作对，则规划可以更加有效**。  
 **例如**，考虑在第一个迷宫任务的第二回合中发生的情况（图8.4）。  
@@ -228,10 +228,10 @@
 > 维护每个状态-动作对的队列，如果更新，其估计值将变化为非平凡的，由变化的大小区分优先级。更新队列中的头部状态-动作对时，将计算对其每个前任状态-动作对的影响。如果效**果大于某个小阈值，则将该对插入具有新优先级的队列中（如果队列中存在该状态-动作对的先前条目，则插入导致队列中仅剩余的较高优先级条目**）。通过这种方式，变化的影响被有效地向后传播直到静止。  
   
 **确定性环境的完整算法框图**:  
-> ![12](/home/tenglong/0.png)   
+> ![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/12.png)   
  
  **例8.4：迷宫优先扫描**   
- > ![13](/home/tenglong/0.png)   
+ > ![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/13.png)   
  >已发现优先扫描可显着提高在迷宫任务中找到最佳解决方案的速度，通常为5到10倍。 右侧显示了典型示例。这些数据用于一系列与图8.3所示结构完全相同的迷宫任务，只是它们的网格分辨率不同。 优先扫描比未优先的Dyna-Q保持了决定性的优势。两个系统在每次环境交互中最多进行 n=5 次更新。 改编自Peng和Williams（1993）。   
  
 **优先扫描只是分配计算以提高规划效率的一种方式，可能不是最好的方法**。  
@@ -242,7 +242,7 @@
 >**通过选择进行小更新的顺序，可以大大提高规划效率，超越优先扫描的可能性**。   
   
   **举例说明优先扫描的一些限制**:   
-  > ![14](/home/tenglong/0.png)   
+  > ![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/14.png)   
    
  **forward focusing**:  
 > 另一种方法是关注于根据在当前策略下经常访问的状态可以轻松地达到的状态，这可被称为 前向聚焦. **another would be to focus on states according to how easily they can be reached from the states that are visited frequently under the current policy, which might be called forward focusing**.
@@ -256,7 +256,7 @@
 > 另一个二进制维度是，更新是考虑所有可能发生的事件的 `*预期* 更新`，还是考虑可能发生的事件的单个样本的 `*样本* 更新`。  
   
 这三个二进制维度产生八种情况，其中七种对应于特定算法，如下图所示。（第八种情况似乎与任何有用的更新都不对应。）   
-![15](/home/tenglong/0.png)   
+![15](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/15.png)   
 这些一步更新中的任何一种都可用于规划方法。前面讨论的Dyna-Q个体使用 :math:`q_*` 样本更新，但他们也可以使用 :math:`q_*` 预期更新，或预期或样本 :math:`q_\pi` 更新。Dyna-AC系统使用 :math:`v_\pi` 样本更新和学习策略结构（如第13章所述）。  
 对于`随机`问题，`优先扫描`总是使用`预期更新`之一完成。   
 ### 8.5.1 Expected vs. Sample Updates对比一:   
@@ -266,14 +266,14 @@
 > **但它们也需要更多的计算**，而计算通常是规划中的限制资源。  
 > 为了正确评估预期和样本更新的相对优点，我们必须控制其不同的计算要求。  
 ### 8.5.2 Expected vs. Sample Updates的不同的状态动作对的更新:    
-![16](/home/tenglong/0.png)   
+![16](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/16.png)   
 **对于随机的环境而言,随机程度越高(即对于给定的状态可能大下一状态越多)则预期与样本更新之间的差异就越大.而且随机程度高时预期更新的计算量会成倍的增加**.  
-> ![17](/home/tenglong/0.png)   
+> ![17](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/17.png)   
   
   如果**有足够的时间**来完成**预期更新**，那么由于没有采样误差，所得到的估计通常**优于 b 样本更新**。 但是，如果**没有足够的时间**来完成预期更新，那么**样本更新总是更可取的**， 因为它们至少会使用少于 b 更新的价值估算进行一些改进。  
    在许多状态-动作对的大问题中，我们经常处于后一种情况。 有这么多的状态-动作对，所有这些状态-动作对的预期更新将花费很长时间。 在此之前，我们可能会在许多状态-动作对中进行一些样本更新，而不是在几对中预期更新。   
 ### 8.5.3 **给定计算单元，投入到一些预期的更新是否更好，或 b 倍的样本更新更好**？     
-> ![18](/home/tenglong/0.png)   
+> ![18](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/18.png)   
 > 图8.7中显示的样本更新的优点可能是低估了实际效果。在实际问题中，后继状态的值将是自身更新的估计值。 通过使估算更快更准确，样本更新将具有第二个优势，即从后继状态备份的值将更准确。 **这些结果表明，样本更新可能优于大型随机分支因子问题并且要解决的状态太多的预期更新**。   
 
 ## 8.6 Trajectory Sampling(轨迹采样)    
@@ -302,7 +302,7 @@
 > 具体实验设计:为了隔离更新分布的影响，我们使用完全一步预期的表格更新，如（8.1）所定义。 在 统一的一致的 (uniform)的情况下，我们循环遍历所有状态-动作对，更新每个状态，并且在在策略情况下我们模拟回合(episode)， 所有回合都以相同的状态开始， 更新当前 ε -贪婪的策略（ε=0.1）下发生的每个状态-动作对。 任务是无折扣的回合任务，随机生成如下。从 |S| 的每个状态，两个动作是可能的， 每个动作都导致 b 个下一个状态中的一个，都是同样可能的，每个状态-动作对的 b 个状态的随机选择不同。 对于所有状态-动作对，分支因子 b 是相同的。此外，在所有过渡中，有0.1概率转换到终止状态，结束这一回合。 每个过渡的预期奖励是从高斯分布中选择的，均值为0，方差为1。 在规划过程中的任何一点，人们都可以停止并详尽地计算 vπ~(S0)， 即贪婪策略 π~ 下的起始状态的真实值，由当前的动作-价值函数 Q 给出， 作为个体在贪婪行动的新回合中的表现（一直假设模型是正确的）。  
 
 **实验结果分析**:  
-> ![19](/home/tenglong/0.png)   
+> ![19](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/19.png)   
 > 图8.9：在整个状态空间内均匀分布与侧重于模拟on-policy轨迹的更新的相对效率对比，每个轨迹都以相同的状态开始。 结果是随机生成的两种大小和各种分支因子 b 的任务。  
 > 上图的上半部分显示了200个样本任务的平均结果，其中有1000个状态和分支因子为1,3和10。 所找到的策略的质量被绘制为预期更新完成的数量的函数。   
 > **在所有情况下，根据在策略分布进行抽样导致最初的规划更快，从长远来看延迟了规划。 效果更强，更快规划的初始阶段更长，分支因子更小。 在其他实验中，我们发现随着状态数量的增加，这些效应也变得更强**。 例如，图的下半部分显示了具有10,000个状态，分支因子为1的任务的结果。 在这种情况下，在策略关注的优势是巨大而持久的。  
@@ -319,7 +319,7 @@ RTDP与传统DP之间的紧密联系使得通过适应现有理论得出一些�
 **如果轨迹只能从指定的一组起始状态开始，并且如果您对给定策略的预测问题感兴趣**:  
 > 那么在策略轨迹采样允许算法完全跳过任何给定策略从任何起始状态无法达到的状态：这些状态与预测问题 不相干。  
 
-![20](/home/tenglong/0.png)   
+![20](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/20.png)   
 > `相关`与`不相关`的图示   
   
  **对于控制问题**:  
@@ -351,7 +351,7 @@ RTDP与传统DP之间的紧密联系使得通过适应现有理论得出一些�
 
 > **下表比较了传统DP和RTDP解决此任务的问题**。这些结果是超过25次运行的平均值，每次运行都以不同的随机数种子开始。 在这种情况下，常规DP是使用状态集的穷举扫描的价值迭代，其中价值一次更新一个状态， 这意味着每个状态的更新使用其他状态的最新价值 （这是Gauss-Seidel价值迭代的版本，发现大约比Jacobi版本在这个问题上快两倍。见4.8节。） 没有特别注意更新的顺序；其他排序可能会产生更快的收敛。  
 
-> ![21](/home/tenglong/0.png)   
+> ![21](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/21.png)   
 
 > 两种方法的每次运行的初始值均为零。 当扫描状态价值的最大变化小于 10−4 时，DP被判断为收敛， 并且当超过20回合越过终点线的平均时间呈现出稳定在渐近数量的步骤时，判断RTDP已收敛。 此版本的RTDP仅更新了每个步骤的当前状态价值。   
 
@@ -419,7 +419,7 @@ RTDP与传统DP之间的紧密联系使得通过适应现有理论得出一些�
 >  如果以这种方式对更新进行排序并使用表格表示，那么将实现与深度优先启发式搜索完全相同的整体更新。 可以通过这种方式查看任何状态空间搜索，即将大量单个一步更新拼凑在一起。   
 > 因此，**通过更深入的搜索观察到的性能改进不是由于使用多步骤更新**。相反，**这是由于聚焦和专注于当前状态下游的状态和动作的更新**。   
 > 通过投入大量与候选动作特别相关的计算，决策时计划可以产生比依赖未聚焦更新产生的更好的决策。   
-> ![22](/home/tenglong/0.png)   
+> ![22](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/22.png)   
 > 图8.10： 启发式搜索可以实现为一系列一步更新（此处以蓝色显示），从叶节点向根备份价值。 此处显示的顺序用于选择性深度优先搜索。   
 
 ## 8.10 Rollout算法  
@@ -475,7 +475,7 @@ Rollout算法所需的计算时间取决于:
  > 在树之外和叶节点处，rollout策略用于动作选择，但是在树内的状态下，可能会更好。   
  > 对于这些状态，我们至少对某些行动进行了估值，因此我们可以使用一种称为 树策略 的知情策略来挑选它们，以平衡探索和利用。 例如，树策略可以使用 ε -贪婪或UCB选择规则（第2章）来选择动作。  
 ###  8.11.2 MCTS基本版本的每次迭代都包含以下四个步骤:
- ![23](/home/tenglong/0.png)   
+ ![23](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/23.png)   
  > 图8.11：蒙特卡洛树搜索。当环境变为新状态时，MCTS在需要选择动作之前执行尽可能多的迭代， 增量构建其根节点表示当前状态的树。每个迭代包括四个操作 选择，扩展 （尽管可能在某些迭代中跳过）， 模拟 和 备份，如文中所述，并由树中的粗体箭头表示。改编自Chaslot，Bakkes，Szita和Spronck（2008）
 
 更详细地说，MCTS基本版本的每次迭代都包含以下**四个步骤**，如图8.11所示：   
@@ -534,7 +534,7 @@ MCTS决策时规划取得的巨大成功深刻影响了人工智能，许多研�
 >  **这三个想法是本书所涉及主题的核心**。我们认为价值函数，备份价值更新和GPI是强有力的组织原则， 可能与任何智能模型相关，无论是人工还是自然。
 
 ### 8.13.1 水平维度和垂直维度
-![24](/home/tenglong/0.png)   
+![24](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_8/24.png)   
 >图8.12：通过强化学习方法的空间切片，突出显示本书第一部分探讨的两个最重要的维度：更新的深度和宽度。   
 >图8.12显示了方法变化的两个最重要的维度。这些维度与用于改进价值函数的更新类型有关。  
 >  **水平维度**是它们是样本更新（基于样本轨迹）还是预期更新（基于可能轨迹的分布）。 预期的更新需要分布模型，而样本更新只需要样本模型，或者可以根据实际经验完成，根本没有模型（变动的另一个维度）。   

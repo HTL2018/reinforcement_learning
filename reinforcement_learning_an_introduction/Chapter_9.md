@@ -20,7 +20,7 @@ VE¯(w)≐∑s∈Sμ(s)[vπ(s)−v^(s,w)]2(9.1)
 
 该度量的平方根（根VE¯）粗略地衡量了近似值与真实值的差异，并且通常用于图中。 通常 μ(s) 被选择为 s 中花费的时间的一部分。 在在策略训练中，这被称为 ***在策略分布***；我们在本章中完全关注这个案例。 在持续任务中，在策略分布是 math:pi 下的固定分布。  
 
-![0](/home/tenglong/0.png)   
+![0](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/0.png)   
 
 这两种情况，即持续的和回合的，表现相似，但近似时必须在形式分析中单独处理， 正如我们将在本书的这一部分中反复看到的那样。这完成了学习目标的规范。   
 
@@ -33,7 +33,7 @@ VE¯(w)≐∑s∈Sμ(s)[vπ(s)−v^(s,w)]2(9.1)
 ## 9.3 随机梯度和半梯度方法  
 **随机梯度下降 （SGD）方法基本原理:**  
 随机梯度下降 （SGD）方法通过在每个样例之后将权重向量向最大程度地减少该示例中的误差的方向少量调整来实现此目的：  
-![1](/home/tenglong/0.png)    
+![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/1.png)    
 **称SGD方法是“梯度下降”方法的原因**:   
 >  因为 Wt 中的整个步长与示例的平方误差（9.4）的负梯度成比例。同时,这是误差下降最快的方向。   
   
@@ -63,13 +63,13 @@ VE¯(w)≐∑s∈Sμ(s)[vπ(s)−v^(s,w)]2(9.1)
 ## 9.4 线性方法  
 ### 9.4.1 线性来源:  
 近似价值函数被称为 **依据权重线性的**（linear in the weights），或简单地称为**线性**。    
-即: ![2](/home/tenglong/0.png)   
+即: ![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/2.png)   
 > 向量 x(s) 被称为表示状态 s 的 **特征向量**。    x(s) 的每个分量 xi(s) 是 函数 xi:S→R (实数域)的值。   
 > 我们所说的**特征**就是一个完整的函数。  
 >  对于线性方法，特征被称作 **基函数**，因为它们构成了可能的近似函数集的线性基。    
 ### 9.4.2 线性TD(0)的收敛性证明  
-![3](/home/tenglong/0.png)    
-![4](/home/tenglong/0.png)   
+![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/3.png)    
+![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/4.png)   
 
 > **线性半梯度DP**根据在策略分布进行更新也将收敛到TD固定点。  
 > **一步半梯度 动作价值** 方法， 例如下一章中介绍的半梯度Sarsa(0)会收敛到类似的固定点和类似的边界。   
@@ -81,7 +81,7 @@ VE¯(w)≐∑s∈Sμ(s)[vπ(s)−v^(s,w)]2(9.1)
 但是,在实践中它们在数据和计算方面是否非常有效的关键在于**如何选取用来表示状态的特征**.   
 **选择适合任务的特征是将先验知识添加到强化学习系统的重要方法**。 直观地，这些特征特征应该提取状态空间中最通用的信息。   
 ### 9.5.2 多项式基:  
-![5](/home/tenglong/0.png)   
+![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/5.png)   
 ### 9.5.3 傅里叶基:  
 **对于一维情况**:  
 > 具有周期 τ 的一维函数的通常傅立叶级数表示为正弦和余弦函数的线性组合的函数， 每个函数周期性地均衡分割 τ 的周期（换句话说，其频率是整数乘以基频 1/τ）。  
@@ -95,10 +95,10 @@ VE¯(w)≐∑s∈Sμ(s)[vπ(s)−v^(s,w)]2(9.1)
 > 当然并不意味这不能同时使用正弦和余弦来近似区间 [0,τ/2],在某些情况下同时使用是有利的.   
   
   **多维情况下的傅立叶余弦序列近似的详细描述:**  
-  ![6](/home/tenglong/0.png)   
+  ![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/6.png)   
   
   **步长参数设置的建议:**   
-  ![7](/home/tenglong/0.png)    
+  ![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/7.png)    
   
 **注意:**   
 > 傅里叶特征在不连续性方面存在问题，因为除非包括非常高频率的基函数，否则很难避免在不连续点周围的“波动”问题。   
@@ -110,11 +110,11 @@ VE¯(w)≐∑s∈Sμ(s)[vπ(s)−v^(s,w)]2(9.1)
 > 一方面,**通过设置 ci 向量来描述状态变量之间的相互作用， 并通过限制 ci 向量中的值来近似滤除被认为是噪音的高频分量。  
 >  **另一方面**，由于傅立叶特征在整个状态空间上几乎都是非零的（除了少数零），它们代表状态的全局属性，这也使得表示局部属性比较困难。    
 ### 9.5.4 粗编码:  
-![8](/home/tenglong/0.png)   
+![8](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/8.png)   
 如果状态在圆内，则相应的特征具有值1并且可以说是 **出席**（present）；否则该特征为0并且可以说 **缺席**（absent）。   
 这种表示状态重叠性质的特征(不一定是圆或者二值)被称为**粗编码**.  
 ### 9.5.5 瓦片编码:  
-![9](/home/tenglong/0.png)   
+![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/9.png)   
 在瓦片编码中，特征的感受野组成了状态空间的一系列划分。   
 每个这样的划分称为 **覆盖**（tiling），覆盖的每个元素称为一个 **瓦片**（tile）。    
 
@@ -140,7 +140,7 @@ VE¯(w)≐∑s∈Sμ(s)[vπ(s)−v^(s,w)]2(9.1)
 > 哈希产生的瓦片由随机散布于整个状态空间中的不连续且互斥的区域组成,但他们合在一起仍然覆盖了整个状态空间.   
 ### 9.5.6 径向基函数:  
 **径向基函数（RBF）是粗编码到连续特征(实值特征的自然泛化。 相较于每个特征都是0或1，它可以是区间 [0,1] 中的任何值，反映这个"特征"出席"的程度**。   
- ![10](/home/tenglong/0.png)   
+ ![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/10.png)   
  
 **RBF相对于二值特征的主要优点是**:  
 > **它们产生的近似函数平滑变化且可微**。  
@@ -160,7 +160,7 @@ VE¯(w)≐∑s∈Sμ(s)[vπ(s)−v^(s,w)]2(9.1)
 
 然而，在线性函数近似的情况下，存在类似的规则。   
 假设你想在 τ 个经验内用大致相同的特征向量来学习。 然后，设置线性SGD方法的步长参数的一个好的经验法则是:    
-![11](/home/tenglong/0.png)    
+![11](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/11.png)    
 ## 9.7 非线性函数近似：人工神经网络(ANN)   
 人工神经网络（ANN）广泛用于**非线性函数近似**。   
 如果ANN在其连接中至少有一个**循环**，则它是一个循环而不是前馈ANN。    
@@ -228,12 +228,12 @@ VE¯(w)≐∑s∈Sμ(s)[vπ(s)−v^(s,w)]2(9.1)
 > 深度卷积网络中的下采样层是为了降低特征图的空间分辨率.   
 ## 9.8 最小二乘时序差分(LSTD)  
 **最小二乘时序差分基本原理:**  
-![12](/home/tenglong/0.png)    
+![12](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/12.png)    
 
 **LSTD复杂度:**
 其计算复杂度为 O(d2)，当然保存 Aˆt 矩阵 所需的内存为 O(d2),即它的空间复杂度也为 O(d2)。   
 
-![13](/home/tenglong/0.png)   
+![13](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/13.png)   
 
 
 **注意:**   
@@ -308,7 +308,7 @@ k:S×S→R， 因此 k(s,s′) 是在查询状态为s时,为s′ 对于查询回
  在策略(同轨策略)分布被定义为在遵循目标策略的同时在MDP中遇到的状态分布。
 
 **兴趣值和强调值:**   
-![14](/home/tenglong/0.png)   
+![14](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_9/14.png)   
 
 ## 9.12 本章小结  
 **也许最合适的监督学习方法是使用 参数化函数近似 的方法**:   

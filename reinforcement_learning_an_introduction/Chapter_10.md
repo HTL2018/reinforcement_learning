@@ -5,35 +5,35 @@
 
 ## 10.1 分幕式半梯度控制
 **分幕式半梯度单步Sarsa基本思想与原理:**   
-![0](/home/tenglong/0.png)     
+![0](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/0.png)     
 为了形成控制方法，我们需要将这些**动作价值预测方法**与**策略改进**和**行动选择技术**相结合。    
  适用于连续动作或来自大型离散集的动作的适当技术是正在进行的研究主题，但尚未明确解决。    
 另一方面，如果动作集是离散的并且不是太大，那么我们可以使用前面章节中已经开发的技术。    
-![1](/home/tenglong/0.png)    
+![1](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/1.png)    
 ## 10.2 半梯度n步Sarsa
 **算法原理:**   
-![2](/home/tenglong/0.png)   
+![2](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/2.png)   
 **算法伪代码:**    
-![3](/home/tenglong/0.png)    
+![3](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/3.png)    
 ## 10.3 平均收益：持续任务中的新的问题的设定  
 除**"分幕式"设定**和**"折扣"设定**外,此处引出马尔科夫决策问题的第三个经典的目标设定:**"平均收益"设定**.    
  **与"折扣"设定一样**，平均奖励 设置适用于持续存在的问题，即智能体与环境的交互一直持续而没有对应的终止和开始状态.    
  **与"折扣"设定不同的是**:这里不考虑任何折扣,智能体对于延迟收益的重视和即时收益一样.    
  
  **平均收益的定义:**:   
- ![4](/home/tenglong/0.png)    
+ ![4](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/4.png)    
  **差分回报和差分价值函数:**    
- ![5](/home/tenglong/0.png)    
- ![6](/home/tenglong/0.png)    
+ ![5](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/5.png)    
+ ![6](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/6.png)    
  **完整算法的伪代码**:  
- ![7](/home/tenglong/0.png)   
+ ![7](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/7.png)   
 ##  10.4 弃用折扣  
 对于策略 π，折扣回报的平均值总是 r(π)/(1−γ)， 也就是说，它本质上就是平均回报 r(π)。   
 特别是，**平均折扣回报设置中所有策略的 排序 与平均收益设置中的排序完全相同**。   
  因此，折扣率 γ 对问题的表述没有影响。它实际上可能为 零，排序保持不变。   
  
 **基本思想**可以通过对称的观点来解释。 每个时步与其他步骤完全相同。    
- ![8](/home/tenglong/0.png)    
+ ![8](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/8.png)    
  此示例和框中更一般的参数表明，如果我们优化了在策略分布上的折扣值， 那么效果将与优化 未折扣 的平均奖励相同；γ 的实际值将无效。    
 
  **折扣控制设置的困难的根本原因**:  
@@ -42,9 +42,9 @@
  **注意:**   
  > 缺乏策略提升定理也是分幕式设定和平均收益设定的理论空白。 一旦我们引入函数近似，我们就无法再保证在任何的设定下都一定会有策略的提升。    
 ##  10.5 差分半梯度n步Sarsa  
-![9](/home/tenglong/0.png)   
+![9](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/9.png)   
  **完整算法的伪代码**:   
- ![10](/home/tenglong/0.png)    
+ ![10](https://github.com/HTL2018/reinforcement_learning/blob/master/reinforcement_learning_an_introduction/image/Chapter_10/10.png)    
 ##  本章小节:  
 在本章中，我们将前一章介绍的参数化函数近似和半梯度下降的思想扩展到控制。     
   
